@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'TPSortieFront';
+
+  navLinks = [
+    {
+      label : "Gros caca",
+      link:"profile"
+    },
+  ]
 }

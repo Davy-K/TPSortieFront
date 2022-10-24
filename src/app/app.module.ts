@@ -7,6 +7,8 @@ import {RouterModule} from "@angular/router";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,6 +18,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     BrowserModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatCardModule,
+    MatFormFieldModule,
     RouterModule.forRoot([
       { path: '', component: ConnexionComponent}
     ]),

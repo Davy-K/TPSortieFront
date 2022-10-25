@@ -7,12 +7,12 @@ import {Router} from "@angular/router";
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  public login = "Login";
-  public prenom = "Prenom";
-  public nom = "Nom";
-  public telephone = "Telephone";
-  public email = "Email";
-  public campus = "Campus";
+  public login = "TestLogin";
+  public prenom = "TestPrenom";
+  public nom = "TestNom";
+  public telephone = "TestTelephone";
+  public email = "TestEmail";
+  public campus = "TestCampus";
 
   constructor(private router: Router) {
 

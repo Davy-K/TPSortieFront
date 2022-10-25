@@ -1,17 +1,31 @@
 <form [formGroup]="authForm" (ngSubmit)="onFormSubmit()">
   <h1>Connexion</h1>
+
   <mat-form-field appearance="fill">
-    <mat-label>Login</mat-label>
-    <input name="login" id="login" formControlName="login" matInput/>
+    <mat-label>Email</mat-label>
+    <input name="email" [errorStateMatcher]="matcher" [formControl]="authForm.controls.email"  formControlName="email" type="email" matInput placeholder="Ex. nom@example.com" />
     <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+
+    <mat-error *ngIf="email?.errors?.['email']">
+      Format de l'email invalide !
+    </mat-error>
+    <mat-error *ngIf="email?.errors?.['required']">
+      Email est <strong>obligatoire</strong>
+    </mat-error>
   </mat-form-field>
+
   <mat-form-field appearance="fill">
     <mat-label>Mot de Passe</mat-label>
     <input name="mdp" id="mdp" formControlName="password" matInput [type]="hide ? 'password' : 'text'"/>
     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
+    <mat-error *ngIf="password?.errors?.['required']">
+      Le mot de passe est <strong>obligatoire</strong>
+    </mat-error>
   </mat-form-field>
+
   <mat-checkbox formControlName="rememberMe">Se souvenir de moi</mat-checkbox>
+
   <button class="mt-2" type="submit" mat-raised-button color="accent" >Connexion</button>
 </form>

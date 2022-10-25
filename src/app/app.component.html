@@ -10,7 +10,7 @@
       <button *ngIf="breakpointService.isSmallDevice$ | async" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
         <mat-icon (click)="drawer.toggle()">menu</mat-icon>
       </button>
-      <span>Logo Sortir.com</span>
+      <span id="logo">Sortir.com</span>
       <div class="ml-auto"></div>
 
       <ng-container *ngIf="!(breakpointService.isSmallDevice$ | async)">

@@ -10,8 +10,8 @@ export class AppComponent {
 
   navLinks = [
     {
-      label : "Create Série",
-      link:"createSerie"
+      label : "",
+      link:""
     },
   ]
 }

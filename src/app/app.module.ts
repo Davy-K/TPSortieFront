@@ -2,34 +2,40 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import {MatToolbarModule} from "@angular/material/toolbar";
-import {MatSidenavModule} from "@angular/material/sidenav";
-
-import {MatCardModule} from '@angular/material/card';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {ConnexionComponent} from "./connexion/connexion.component";
+import { ConnexionComponent } from './connexion/connexion.component';
 import {RouterModule} from "@angular/router";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {CreateSortieComponent} from "./create-sortie/create-sortie.component";
-import {MatGridListModule} from "@angular/material/grid-list";
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatIconModule} from "@angular/material/icon";
 @NgModule({
   declarations: [
     AppComponent,
-    ConnexionComponent,
-    CreateSortieComponent
+    ConnexionComponent
   ],
-    imports: [
-        BrowserModule,
-        MatToolbarModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatSidenavModule,
-        RouterModule.forRoot([
-            {path: '', component: ConnexionComponent}]),
-        RouterModule.forRoot([{path: 'createSerie', component: CreateSortieComponent}]),
-        BrowserAnimationsModule,
-        MatGridListModule
-    ],
+  imports: [
+    BrowserModule,
+    MatCheckboxModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatCardModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    RouterModule.forRoot([
+      {path: '', component: ConnexionComponent}
+    ]),
+    BrowserAnimationsModule,
+    MatIconModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-sortie.component.css']
 })
 export class CreateSortieComponent implements OnInit {
+  listLieu = ["Gaumont","Jardins des plantes","La Beaujoire"];
+  listVille = ["Nantes"];
 
   constructor() { }
 

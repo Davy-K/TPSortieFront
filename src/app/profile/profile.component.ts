@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-profil',
-  templateUrl: './profil.component.html',
-  styleUrls: ['./profil.component.css']
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
 })
-export class ProfilComponent implements OnInit {
+export class ProfileComponent implements OnInit {
   public login = "Login";
   public prenom = "Prenom";
   public nom = "Nom";
@@ -13,7 +14,7 @@ export class ProfilComponent implements OnInit {
   public email = "Email";
   public campus = "Campus";
 
-  constructor() {
+  constructor(private router: Router) {
 
   }
 

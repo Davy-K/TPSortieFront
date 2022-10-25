@@ -16,11 +16,13 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconModule} from "@angular/material/icon";
 import {CreateSortieComponent} from "./create-sortie/create-sortie.component";
 import {MatSelectModule} from "@angular/material/select";
+import { ProfilComponent } from './profil/profil.component';
 @NgModule({
   declarations: [
     AppComponent,
+    CreateSortieComponent,
     ConnexionComponent,
-    CreateSortieComponent
+    ProfilComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,8 @@ import {MatSelectModule} from "@angular/material/select";
     ReactiveFormsModule,
     MatFormFieldModule,
     RouterModule.forRoot([
-      {path: '', component: ConnexionComponent}
+      {path: '', component: ConnexionComponent},
+      {path:'profil', component:ProfilComponent}
     ]),
     RouterModule.forRoot([
       {path: 'sortieCreate', component: CreateSortieComponent}

@@ -14,10 +14,12 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconModule} from "@angular/material/icon";
+import { ProfilComponent } from './profil/profil.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ConnexionComponent
+    ConnexionComponent,
+    ProfilComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,8 @@ import {MatIconModule} from "@angular/material/icon";
     ReactiveFormsModule,
     MatFormFieldModule,
     RouterModule.forRoot([
-      {path: '', component: ConnexionComponent}
+      {path: '', component: ConnexionComponent},
+      {path:'profil', component:ProfilComponent}
     ]),
     BrowserAnimationsModule,
     MatIconModule

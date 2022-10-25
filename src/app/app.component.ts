@@ -10,8 +10,8 @@ export class AppComponent {
 
   navLinks = [
     {
-      label : "Gros caca",
-      link:"profile"
+      label : "",
+      link:""
     },
   ]
 }

@@ -1,1 +1,17 @@
-
+<form [formGroup]="authForm" (ngSubmit)="onFormSubmit()">
+  <h1>Connexion</h1>
+  <mat-form-field appearance="fill">
+    <mat-label>Login</mat-label>
+    <input name="login" id="login" formControlName="login" matInput/>
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Mot de Passe</mat-label>
+    <input name="mdp" id="mdp" formControlName="password" matInput [type]="hide ? 'password' : 'text'"/>
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+  </mat-form-field>
+  <button type="submit" mat-raised-button color="accent" >Connexion</button>
+  <mat-checkbox formControlName="rememberMe">Se souvenir de moi</mat-checkbox>
+</form>

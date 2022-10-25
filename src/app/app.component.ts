@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {BreakpointService} from "./service/breakpoint.service";
 
 @Component({
   selector: 'app-root',
@@ -8,10 +9,20 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'TPSortieFront';
 
+  constructor(public breakpointService:BreakpointService) {
+  }
   navLinks = [
     {
-      label : "",
-      link:""
+      label : "Se Connecter",
+      link:"/"
     },
+    {
+      label : "Profile",
+      link:"/profile"
+    },
+    {
+      label : "Création Sortie",
+      link:"/sortieCreate"
+    }
   ]
 }

@@ -16,13 +16,14 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconModule} from "@angular/material/icon";
 import {CreateSortieComponent} from "./create-sortie/create-sortie.component";
 import {MatSelectModule} from "@angular/material/select";
-import { ProfilComponent } from './profil/profil.component';
+import { ProfileComponent } from './profile/profile.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     CreateSortieComponent,
     ConnexionComponent,
-    ProfilComponent
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +38,7 @@ import { ProfilComponent } from './profil/profil.component';
     MatFormFieldModule,
     RouterModule.forRoot([
       {path: '', component: ConnexionComponent},
-      {path:'profil', component:ProfilComponent},
+      {path:'profile', component:ProfileComponent},
       {path: 'sortieCreate', component: CreateSortieComponent}
     ]),
     BrowserAnimationsModule,

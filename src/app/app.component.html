@@ -6,34 +6,32 @@
   </mat-drawer>
   <ng-container mat-drawer-content>
     <mat-toolbar color="primary">
-      <!--
+
       <button *ngIf="breakpointService.isSmallDevice$ | async" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
         <mat-icon (click)="drawer.toggle()">menu</mat-icon>
-      </button>-->
+      </button>
       <span>Logo Sortir.com</span>
       <div class="ml-auto"></div>
-      <!--
+
       <ng-container *ngIf="!(breakpointService.isSmallDevice$ | async)">
         <ng-container *ngTemplateOutlet="nav_content"></ng-container>
-      </ng-container>-->
+      </ng-container>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </ng-container>
 </mat-drawer-container>
-<!--
-<ng-container *ngFor="let navLink of navLinks">
-<button mat-button [routerLink]="navLink.link" routerLinkActive="active">{{navLink.label}}</button>
-</ng-container>-->
-<ng-template #nav_content>
-<!--
-<ng-container *ngFor="let navLink of navLinks">
-  <button mat-button [routerLink]="navLink.link" routerLinkActive="active">{{navLink.label}}</button>
-</ng-container>
 
+<ng-template #nav_content>
+
+<ng-container *ngFor="let navLink of navLinks">
+  <button class="d-flex align-items-end flex-column" mat-button [routerLink]="navLink.link" routerLinkActive="active">{{navLink.label}}</button>
+</ng-container>
+<!--
 <ng-container *ngIf="(loginService.isLoggedIn$| async); else login">
   <button mat-button>Se déconnecter</button>
-</ng-container>
+</ng-container>-->
+
   <ng-template #login>
-    <button mat-button [routerLink]="'profile/login'" routerLinkActive="active">Login</button>
-  </ng-template>-->
+    <button mat-button [routerLink]="'/'" routerLinkActive="active">Login</button>
+  </ng-template>
 </ng-template>

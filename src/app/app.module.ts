@@ -14,10 +14,13 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconModule} from "@angular/material/icon";
+import {CreateSortieComponent} from "./create-sortie/create-sortie.component";
+import {MatSelectModule} from "@angular/material/select";
 @NgModule({
   declarations: [
     AppComponent,
-    ConnexionComponent
+    ConnexionComponent,
+    CreateSortieComponent
   ],
   imports: [
     BrowserModule,
@@ -33,8 +36,12 @@ import {MatIconModule} from "@angular/material/icon";
     RouterModule.forRoot([
       {path: '', component: ConnexionComponent}
     ]),
+    RouterModule.forRoot([
+      {path: 'sortieCreate', component: CreateSortieComponent}
+    ]),
     BrowserAnimationsModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

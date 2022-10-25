@@ -37,9 +37,7 @@ import { ProfilComponent } from './profil/profil.component';
     MatFormFieldModule,
     RouterModule.forRoot([
       {path: '', component: ConnexionComponent},
-      {path:'profil', component:ProfilComponent}
-    ]),
-    RouterModule.forRoot([
+      {path:'profil', component:ProfilComponent},
       {path: 'sortieCreate', component: CreateSortieComponent}
     ]),
     BrowserAnimationsModule,

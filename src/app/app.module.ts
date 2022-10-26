@@ -17,11 +17,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {CreateSortieComponent} from "./create-sortie/create-sortie.component";
 import {MatSelectModule} from "@angular/material/select";
 import { ProfileComponent } from './profile/profile.component';
-import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MatNativeDateModule} from '@angular/material/core';
-import { AccueilComponent } from './accueil/accueil.component';
-//import {MatMomentDateModule} from "@angulae/material/datepicker";
-//import { CalendarComponent } from './component/calendar/calendar.component';
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -29,33 +25,28 @@ import { AccueilComponent } from './accueil/accueil.component';
     CreateSortieComponent,
     ConnexionComponent,
     ProfileComponent,
-    AccueilComponent,
   ],
-    imports: [
-        BrowserModule,
-        MatCheckboxModule,
-        MatSidenavModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatCardModule,
-        MatInputModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        RouterModule.forRoot([
-            {path: '', component: ConnexionComponent},
-            {path: 'profile', component: ProfileComponent},
-            {path: 'sortieCreate', component: CreateSortieComponent},
-          {path: 'Accueil', component: AccueilComponent}
-        ]),
-        BrowserAnimationsModule,
-        MatIconModule,
-        MatSelectModule,
-        MatDatepickerModule,
-        MatNativeDateModule
-        //MatMomentDateModule,
-        //CalendarComponent
-    ],
+  imports: [
+    BrowserModule,
+    MatCheckboxModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatCardModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatFormFieldModule,
+    RouterModule.forRoot([
+      {path: '', component: ConnexionComponent},
+      {path:'profile', component:ProfileComponent},
+      {path: 'sortieCreate', component: CreateSortieComponent}
+    ]),
+    BrowserAnimationsModule,
+    MatIconModule,
+    MatSelectModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

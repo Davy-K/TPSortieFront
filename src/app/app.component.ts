@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {BreakpointService} from "./service/breakpoint.service";
+import {LoginService} from "./service/login.service";
+import {Router} from "@angular/router"
 
 @Component({
   selector: 'app-root',
@@ -8,14 +10,11 @@ import {BreakpointService} from "./service/breakpoint.service";
 })
 export class AppComponent {
   title = 'TPSortieFront';
-
-  constructor(public breakpointService:BreakpointService) {
+  isLoggedIn : boolean = false;
+  constructor(public breakpointService:BreakpointService, public loginService:LoginService,private router: Router) {
+    this.loginService.isLoggedIn$.subscribe(el=>this.isLoggedIn = el)
   }
   navLinks = [
-    {
-      label : "Se Connecter",
-      link:"/"
-    },
     {
       label : "Profile",
       link:"/profile"
@@ -25,4 +24,6 @@ export class AppComponent {
       link:"/sortieCreate"
     }
   ]
+
+
 }

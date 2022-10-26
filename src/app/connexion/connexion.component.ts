@@ -1,7 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
+import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from "@angular/forms";
 import {CookieService} from "ngx-cookie-service";
+import {ErrorStateMatcher} from '@angular/material/core';
+import {LoginService} from "../service/login.service";
 
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 
 @Component({
@@ -12,23 +21,38 @@ import {CookieService} from "ngx-cookie-service";
 export class ConnexionComponent implements OnInit {
   hide = true;
   authForm = new FormGroup({
-    login: new FormControl("", [Validators.required]),
+    email: new FormControl("", [Validators.required, Validators.email]),
     password: new FormControl("", [Validators.required]),
     rememberMe: new FormControl(false)
   })
-  constructor(private cookieService: CookieService) {
-    if (this.cookieService.get("login") != null) {
-      this.authForm.controls.login.setValue(this.cookieService.get('login'));
+
+  matcher = new MyErrorStateMatcher();
+
+  constructor(private cookieService: CookieService, private loginService: LoginService) {
+    if (this.cookieService.get("email") != null) {
+      this.authForm.controls.email.setValue(this.cookieService.get('email'));
     }
   }
 
   ngOnInit(): void {
   }
 
+  get email() {
+    return this.authForm.get('email');
+  }
+
+  get password() {
+    return this.authForm.get('password');
+  }
+
   onFormSubmit() {
-    let login = this.authForm.controls.login.value;
+    let email = this.authForm.controls.email.value;
     let password = this.authForm.controls.password.value;
     let rememberMe = this.authForm.controls.rememberMe.value;
+
+    if (email != null && password != null && rememberMe != null) {
+      this.loginService.getUser(email, password,rememberMe);
+    }
 
   }
 }

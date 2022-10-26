@@ -5,6 +5,8 @@
 .example-form {
   min-width: 150px;
   max-width: 500px;
+  margin-right: 10rem;
+  margin-left: 10rem;
 }
 
 .example-full-width {
@@ -39,3 +41,12 @@
 .div10 { grid-area: 5 / 2 / 6 / 3;}
 .div11{ grid-area: 6 / 1 / 7 / 2; }
 .div12 { grid-area: 6 / 2 / 7 / 3;}
+
+#comm{
+  height: 5.4rem;
+}
+
+.d-flex col-4{
+  margin-right: 5rem;
+}
+

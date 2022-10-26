@@ -17,6 +17,11 @@ import {MatIconModule} from "@angular/material/icon";
 import {CreateSortieComponent} from "./create-sortie/create-sortie.component";
 import {MatSelectModule} from "@angular/material/select";
 import { ProfileComponent } from './profile/profile.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from '@angular/material/core';
+import { AccueilComponent } from './accueil/accueil.component';
+//import {MatMomentDateModule} from "@angulae/material/datepicker";
+//import { CalendarComponent } from './component/calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -24,27 +29,33 @@ import { ProfileComponent } from './profile/profile.component';
     CreateSortieComponent,
     ConnexionComponent,
     ProfileComponent,
+    AccueilComponent,
   ],
-  imports: [
-    BrowserModule,
-    MatCheckboxModule,
-    MatSidenavModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatCardModule,
-    MatInputModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    RouterModule.forRoot([
-      {path: '', component: ConnexionComponent},
-      {path:'profile', component:ProfileComponent},
-      {path: 'sortieCreate', component: CreateSortieComponent}
-    ]),
-    BrowserAnimationsModule,
-    MatIconModule,
-    MatSelectModule
-  ],
+    imports: [
+        BrowserModule,
+        MatCheckboxModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatCardModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        RouterModule.forRoot([
+            {path: '', component: ConnexionComponent},
+            {path: 'profile', component: ProfileComponent},
+            {path: 'sortieCreate', component: CreateSortieComponent},
+          {path: 'Accueil', component: AccueilComponent}
+        ]),
+        BrowserAnimationsModule,
+        MatIconModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule
+        //MatMomentDateModule,
+        //CalendarComponent
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -3,32 +3,35 @@
 <form class="example-form">
 
   <div class="row justify-content-center">
-  <div class="col-4">
+  <div class="d-flex col-4">
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Nom de la sortie</mat-label>
-      <input matInput placeholder="Ex. Cinéma" >
+      <input matInput placeholder="Ex. Cinéma" formControlName="name">
     </mat-form-field>
   </div>
-  <div class="col-4">
+  <div class="d-flex col-4">
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Campus</mat-label>
-      <input matInput placeholder="Ex.Nantes">
+      <input matInput placeholder="Ex.Nantes" formControlName="campus" [disabled]=true>
     </mat-form-field>
   </div>
   </div>
 
 <div class="row justify-content-center">
-  <div class="col-4">
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Date et heure de la sortie </mat-label>
-      <input matInput placeholder="Ex.Nantes">
+  <div class="d-flex col-4">
+    <mat-form-field appearance="fill">
+      <mat-label>Date et heure de la sortie</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dateSortie">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   </div>
-  <div class="col-4">
+  <div class="d-flex col-4" style="margin-left:8rem;">
     <mat-form-field appearance="fill">
       <mat-label>Ville</mat-label>
-      <mat-select>
-        --<mat-option *ngFor="let ville of listVille" [value]="ville">
+      <mat-select formControlName="ville">
+        <mat-option *ngFor="let ville of listVille" [value]="ville">
           {{ville}}
         </mat-option>-
       </mat-select>
@@ -38,87 +41,87 @@
 
 <div class="row justify-content-center">
   <div class="col-4">
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Date limite d'inscription</mat-label>
-      <input matInput placeholder="Ex.Nantes">
+    <mat-form-field appearance="fill">
+      <mat-label>Date limite inscription</mat-label>
+      <input  matInput [matDatepicker]="sndPicker" formControlName="dateLimite">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="sndPicker"></mat-datepicker-toggle>
+      <mat-datepicker #sndPicker></mat-datepicker>
     </mat-form-field>
   </div>
-  <div class="col-4">
+  <div class="d-flex col-4" style="margin-left:8rem;">
     <mat-form-field appearance="fill">
       <mat-label>Lieu</mat-label>
-      <mat-select>
+      <mat-select formControlName="lieu">
         <mat-option *ngFor="let lieu of listLieu" [value]="lieu">
           {{lieu}}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <div class="example-button-container">
-      <button mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
-        <mat-icon>plus</mat-icon>
+      <button style="margin-left: 1rem" mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
+        <mat-icon>add</mat-icon>
       </button>
-    </div>
   </div>
 </div>
-
 <div class="row justify-content-center">
-  <div class="col-4">
+  <div class="d-flex col-4">
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Nombre de places :</mat-label>
-        <input matInput placeholder="">
+        <input matInput placeholder="" formControlName="nbPlace">
       </mat-form-field>
   </div>
-  <div class="col-4">
+  <div class="d-flex col-4">
     <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Campus</mat-label>
-      <input matInput placeholder="Ex.Nantes">
+      <mat-label>Rue</mat-label>
+      <input matInput placeholder="Ex.François Jospeh Talma" formControlName="adresse" [disabled]=true>
     </mat-form-field>
   </div>
 </div>
 
 <div class="row justify-content-center">
-  <div class="col-4">
+  <div class="d-flex col-4">
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Durée :</mat-label>
-        <input matInput placeholder="90">
+        <input matInput placeholder="90" formControlName="duree">
       </mat-form-field>
   </div>
-  <div class="col-4">
+  <div class="d-flex col-4">
     <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Campus</mat-label>
-      <input matInput placeholder="Ex.Nantes">
+      <mat-label>Code Postal</mat-label>
+      <input matInput placeholder="Ex.44000" formControlName="cp" [disabled]=true>
     </mat-form-field>
   </div>
 </div>
 
 <div class="row justify-content-center">
-  <div class="col-4">
+  <div class="d-flex col-4">
       <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Campus</mat-label>
-        <textarea matInput placeholder="Commentaire"></textarea>
+        <mat-label>Commentaire</mat-label>
+        <textarea id="comm" matInput placeholder="Commentaire" formControlName="commentaire"></textarea>
       </mat-form-field>
   </div>
   <div class="col-4">
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Latitude</mat-label>
-      <input matInput placeholder="">
+      <input matInput placeholder="" formControlName="latitude">
     </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Longitude</mat-label>
-      <input matInput placeholder="">
+      <input matInput placeholder="" formControlName="longitude">
     </mat-form-field>
   </div>
   </div>
 
   <div class="row align-items-center">
     <div class="col">
-      <button type="submit" mat-raised-button color="accent" >Publier</button>
+      <button type="submit" mat-raised-button color="accent" class="publier" (click)="publish()">Publier</button>
     </div>
     <div class="col">
-      <button type="submit" mat-raised-button color="accent" >Enregistrer</button>
+      <button type="submit" mat-raised-button color="accent" class="Register" (click)="register()" >Enregistrer</button>
     </div>
     <div class="col">
-      <button type="submit" mat-raised-button color="accent" >Annuler</button>
+      <button type="submit" mat-raised-button color="accent" class="cancel" (click)="annuler()">Annuler</button>
     </div>
   </div>
 

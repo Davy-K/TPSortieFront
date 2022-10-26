@@ -12,7 +12,7 @@ export class LoginService {
 
   constructor(private httpClient:HttpClient,private router: Router,private cookieService: CookieService) {
   }
-
+  public error: string = '';
   private loggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(!!localStorage.getItem("access_token"));
 
   get isLoggedIn$(): BehaviorSubject<boolean> {
@@ -20,7 +20,7 @@ export class LoginService {
   }
 
   getUser(email: string, password: string,rememberMe:boolean) {
-
+    this.error = '';
     const httpOptions ={
       headers: new HttpHeaders(({
         'Content-Type': 'application/json'
@@ -37,8 +37,11 @@ export class LoginService {
         }
         this.router.navigate(['/profile']);
       }
-    });
-
+    },
+    error => {
+      this.error = error.message;
+    }
+    );
   }
   disconnect(){
     localStorage.removeItem("access_token");

@@ -27,7 +27,7 @@ export class ConnexionComponent implements OnInit {
 
   matcher = new MyErrorStateMatcher();
 
-  constructor(private cookieService: CookieService, private loginService: LoginService) {
+  constructor(private cookieService: CookieService, public loginService: LoginService) {
     if (this.cookieService.get("email") != null) {
       this.authForm.controls.email.setValue(this.cookieService.get('email'));
     }

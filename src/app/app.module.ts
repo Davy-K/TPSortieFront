@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppComponent } from './app.component';
-import { ConnexionComponent } from './connexion/connexion.component';
+import {AppComponent } from './app.component';
+import {ConnexionComponent } from './connexion/connexion.component';
 import {RouterModule} from "@angular/router";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatCardModule} from '@angular/material/card';
@@ -16,8 +16,10 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconModule} from "@angular/material/icon";
 import {CreateSortieComponent} from "./create-sortie/create-sortie.component";
 import {MatSelectModule} from "@angular/material/select";
-import { ProfileComponent } from './profile/profile.component';
+import {ProfileComponent } from './profile/profile.component';
+import {AccueilComponent } from './accueil/accueil.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {MatDatepickerModule} from "@angular/material/datepicker";
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     CreateSortieComponent,
     ConnexionComponent,
     ProfileComponent,
+    AccueilComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,12 +43,14 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     MatFormFieldModule,
     RouterModule.forRoot([
       {path: '', component: ConnexionComponent},
-      {path:'profile', component:ProfileComponent},
-      {path: 'sortieCreate', component: CreateSortieComponent}
+      {path: 'profile', component: ProfileComponent},
+      {path: 'sortieCreate', component: CreateSortieComponent},
+      {path: 'home', component: AccueilComponent}
     ]),
     BrowserAnimationsModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import {LoginService} from "../service/login.service";
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +15,7 @@ export class ProfileComponent implements OnInit {
   public email = "TestEmail";
   public campus = "TestCampus";
 
-  constructor(private router: Router) {
+  constructor(private router: Router,public loginService: LoginService) {
 
   }
 

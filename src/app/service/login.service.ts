@@ -19,6 +19,18 @@ export class LoginService {
     return this.loggedIn$;
   }
 
+  verifConnexion(): boolean{
+    let verif;
+    let retour;
+    verif = localStorage.getItem("access_token");
+    if(verif == null){
+      retour = false;
+    }else{
+      retour = true;
+    }
+    return retour;
+  }
+
   getUser(email: string, password: string,rememberMe:boolean) {
     this.error = '';
     const httpOptions ={

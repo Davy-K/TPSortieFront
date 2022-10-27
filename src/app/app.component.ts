@@ -20,7 +20,6 @@ export class AppComponent {
     this.loginService.isLoggedIn$.subscribe(el => {
       this.isLoggedIn = el;
       let token = localStorage.getItem('access_token');
-      console.log(token)
       if (token != null) {
         const tokenInfo = this.getDecodedAccessToken(token);
         let role = tokenInfo.roles[0];
@@ -52,8 +51,8 @@ export class AppComponent {
       isAdmin: false
     },
     {
-      label: "Panneau Administration",
-      link: "/admin",
+      label: "Liste des Utilisateurs",
+      link: "/listUser",
       isAdmin: true
     }
   ]

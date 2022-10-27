@@ -4,6 +4,7 @@ import {coerceBooleanProperty} from "@angular/cdk/coercion";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router"
 import {CookieService} from "ngx-cookie-service";
+import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,22 @@ export class LoginService {
       retour = false;
     }else{
       retour = true;
+    }
+    return retour;
+  }
+
+  verifAdmin(): boolean{
+    let retour;
+    let role;
+    let token = localStorage.getItem("access_token");
+    if (token != null) {
+      const tokenInfo = this.getDecodedAccessToken(token);
+      role = tokenInfo.roles[0];
+    }
+    if(role == "ROLE_ADMINISTRATEUR"){
+      retour = true;
+    }else{
+      retour = false;
     }
     return retour;
   }
@@ -59,5 +76,13 @@ export class LoginService {
     localStorage.removeItem("access_token");
     this.router.navigate(['/']);
     this.loggedIn$.next(false);
+  }
+
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    } catch (Error) {
+      return null;
+    }
   }
 }

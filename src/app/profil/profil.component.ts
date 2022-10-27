@@ -3,11 +3,11 @@ import {Router} from "@angular/router";
 import {LoginService} from "../service/login.service";
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  selector: 'app-profil',
+  templateUrl: './profil.component.html',
+  styleUrls: ['./profil.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class ProfilComponent implements OnInit {
   public login = "TestLogin";
   public prenom = "TestPrenom";
   public nom = "TestNom";

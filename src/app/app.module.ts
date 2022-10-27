@@ -16,7 +16,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconModule} from "@angular/material/icon";
 import {CreateSortieComponent} from "./create-sortie/create-sortie.component";
 import {MatSelectModule} from "@angular/material/select";
-import {ProfileComponent } from './profile/profile.component';
+import {ProfilComponent } from './profil/profil.component';
 import {AccueilComponent } from './accueil/accueil.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatDatepickerModule} from "@angular/material/datepicker";
@@ -26,7 +26,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     AppComponent,
     CreateSortieComponent,
     ConnexionComponent,
-    ProfileComponent,
+    ProfilComponent,
     AccueilComponent,
   ],
   imports: [
@@ -43,7 +43,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     MatFormFieldModule,
     RouterModule.forRoot([
       {path: '', component: ConnexionComponent},
-      {path: 'profile', component: ProfileComponent},
+      {path: 'profil', component: ProfilComponent},
       {path: 'sortieCreate', component: CreateSortieComponent},
       {path: 'home', component: AccueilComponent}
     ]),

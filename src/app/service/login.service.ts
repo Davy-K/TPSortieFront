@@ -41,13 +41,13 @@ export class LoginService {
 
     this.httpClient.post<{token: string}>("https://127.0.0.1:8000/api/login_check", {username: email, password: password},httpOptions).subscribe(el=>{
       if(el != null){
-        this.loggedIn$.next(true);
         localStorage.setItem("access_token",el.token);
+        this.loggedIn$.next(true);
 
         if(rememberMe){
           this.cookieService.set('email',email);
         }
-        this.router.navigate(['/profile']);
+        this.router.navigate(['/profil']);
       }
     },
     error => {

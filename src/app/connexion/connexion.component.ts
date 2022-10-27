@@ -50,6 +50,10 @@ export class ConnexionComponent implements OnInit {
     let password = this.authForm.controls.password.value;
     let rememberMe = this.authForm.controls.rememberMe.value;
 
+    if(rememberMe == false){
+      this.cookieService.delete("email");
+    }
+
     if (email != null && password != null && rememberMe != null) {
       this.loginService.getUser(email, password,rememberMe);
     }

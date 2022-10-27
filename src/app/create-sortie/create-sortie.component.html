@@ -121,7 +121,7 @@
       <button type="submit" mat-raised-button color="accent" class="Register" (click)="register()" >Enregistrer</button>
     </div>
     <div class="col">
-      <button type="submit" mat-raised-button color="accent" class="cancel" (click)="annuler()">Annuler</button>
+      <button type="submit" mat-raised-button color="accent" class="cancel" [routerLink]="'/home'" (click)="annuler()">Annuler</button>
     </div>
   </div>
 

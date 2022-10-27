@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-create-sortie',
@@ -26,12 +26,26 @@ export class CreateSortieComponent implements OnInit {
     dateLimite: new FormControl("",[Validators.required]),
     campus : new FormControl("",[Validators.required])
   })
-
+  villes$! : Observable<Ville>;
   constructor(private httpClient:HttpClient, private router: Router) { }
-
+  public error: string = "";
   ngOnInit(): void {
 
   }
+
+  villes =[];
+  getVille(){
+    let dataSource = [];
+    this.error = '';
+    let token = localStorage.getItem('access_token')
+    const httpOptions ={
+      headers: new HttpHeaders(({
+        'Content-Type': 'application/json',
+        'Autorization' : 'Bearer '+token
+      }))
+    }
+    this.httpClient.get("https://127.0.0.1:8000/api/cities.json",httpOptions)
+}
 
   onFormSubmit() {
     let name = this.registerForm.controls.name.value;

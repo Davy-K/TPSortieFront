@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {DatePipe} from "@angular/common";
+import {Router} from "@angular/router";
+import {LoginService} from "../service/login.service";
 
 export interface sortie {
   name: string;
@@ -28,7 +30,9 @@ export class AccueilComponent implements OnInit {
 
 
 
-  constructor() { }
+  constructor(private router: Router,public loginService: LoginService) {
+
+  }
 
   ngOnInit(): void {
   }

@@ -20,6 +20,9 @@ import {ProfileComponent } from './profile/profile.component';
 import {AccueilComponent } from './accueil/accueil.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatTableModule} from "@angular/material/table";
+
 
 @NgModule({
   declarations: [
@@ -50,7 +53,9 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     BrowserAnimationsModule,
     MatIconModule,
     MatSelectModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

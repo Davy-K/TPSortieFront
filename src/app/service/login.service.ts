@@ -47,7 +47,7 @@ export class LoginService {
         if(rememberMe){
           this.cookieService.set('email',email);
         }
-        this.router.navigate(['/profil']);
+        this.router.navigate(['/home']);
       }
     },
     error => {

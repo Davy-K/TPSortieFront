@@ -38,7 +38,7 @@ export class AppComponent {
   navLinks = [
     {
       label: "Accueil",
-      link: "/Acceuil",
+      link: "/home",
       isAdmin: false
     },
     {

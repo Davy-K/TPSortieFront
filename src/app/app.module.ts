@@ -18,10 +18,13 @@ import {CreateSortieComponent} from "./create-sortie/create-sortie.component";
 import {MatSelectModule} from "@angular/material/select";
 import {ProfilComponent } from './profil/profil.component';
 import {AccueilComponent } from './accueil/accueil.component';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatTableModule} from "@angular/material/table";
+import { ListUserComponent } from './list-user/list-user.component';
+import {AuthInterceptor} from "./interceptors/interceptor";
+
 
 
 @NgModule({
@@ -31,6 +34,7 @@ import {MatTableModule} from "@angular/material/table";
     ConnexionComponent,
     ProfilComponent,
     AccueilComponent,
+    ListUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,8 @@ import {MatTableModule} from "@angular/material/table";
       {path: '', component: ConnexionComponent},
       {path: 'profil', component: ProfilComponent},
       {path: 'sortieCreate', component: CreateSortieComponent},
-      {path: 'home', component: AccueilComponent}
+      {path: 'home', component: AccueilComponent},
+      {path: 'listUser', component: ListUserComponent}
     ]),
     BrowserAnimationsModule,
     MatIconModule,
@@ -57,7 +62,9 @@ import {MatTableModule} from "@angular/material/table";
     MatNativeDateModule,
     MatTableModule
   ],
-  providers: [],
+  providers: [
+  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

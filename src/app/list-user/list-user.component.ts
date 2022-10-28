@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {LoginService} from "../service/login.service";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
@@ -11,21 +11,25 @@ import {Observable} from "rxjs";
   styleUrls: ['./list-user.component.css']
 })
 export class ListUserComponent implements OnInit {
-  users$! : Observable<User[]>;
-  constructor(private router: Router,public loginService: LoginService,private userService : UserService) { }
+  users$!: Observable<User[]>;
+
+  constructor(private router: Router, public loginService: LoginService, private userService: UserService) {
+  }
 
   ngOnInit(): void {
     this.users$ = this.userService.getUsers();
   }
-  actif = false;
 
-  displayedColumns: string[]=['pseudo','email','actif',"remove"];
+  displayedColumns: string[] = ['pseudo', 'email', 'actif', "remove"];
 
 
-  RemoveUser(id:string){
-
+  RemoveUser(user:User) {
+    this.users$ = this.userService.deleteUser(user);
   }
-  ChangeActif(id:string){
 
+  changeActif(user:User) {
+    console.log(user)
+    user.actif = !user.actif;
+    this.users$ = this.userService.updateUser(user);
   }
 }

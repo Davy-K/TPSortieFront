@@ -52,9 +52,9 @@
   <div class="d-flex col-4" style="margin-left:8rem;">
     <mat-form-field appearance="fill">
       <mat-label>Lieu</mat-label>
-      <mat-select formControlName="lieu">
-        <mat-option *ngFor="let lieu of listLieu" [value]="lieu">
-          {{lieu}}
+      <mat-select formControlName="lieu" *ngIf="villes$ | async as villes">
+        <mat-option *ngFor="let element">
+          {{element.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>

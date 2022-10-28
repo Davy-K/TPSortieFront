@@ -1,5 +1,5 @@
 <mat-card class="d-flex align-items-end flex-column">
-<h3><mat-label>  Date du jour : {{date}}</mat-label> </h3>
+<h3><mat-label>  Date du jour : {{ date }}</mat-label> </h3>
 <h3><mat-label>  Participant : </mat-label> </h3>
 </mat-card>
 <div id="filtre">
@@ -49,7 +49,7 @@
   </div>
 </div>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table mat-table *ngIf="sorties$ |async as sortie" [dataSource]="sorties$" class="mat-elevation-z8">
 
   <!-- Name Column -->
   <ng-container matColumnDef="name">

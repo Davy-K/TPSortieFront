@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {DatePipe} from "@angular/common";
 import {Router} from "@angular/router";
 import {LoginService} from "../service/login.service";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {Sortie, SortieService} from "../service/sortie.service";
 
 export interface sortie {
   name: string;
@@ -23,6 +26,7 @@ const ELEMENT_DATA : sortie[] = [
   styleUrls: ['./accueil.component.css']
 })
 export class AccueilComponent implements OnInit {
+  sorties$! : Observable<Sortie[]>;
   listCampus = [];
   date = new Date();
   displayedColumns: string[] = ['name', 'dateSortie', 'cloture', 'places','state','inscrits','organisator','action'];
@@ -30,11 +34,11 @@ export class AccueilComponent implements OnInit {
 
 
 
-  constructor(private router: Router,public loginService: LoginService) {
+  constructor(private sortieService: SortieService, private router: Router,public loginService: LoginService, private httpClient : HttpClient) {
 
   }
-
   ngOnInit(): void {
+    this.sorties$ = this.sortieService.getSorties();
   }
 
 }

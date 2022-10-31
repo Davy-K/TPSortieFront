@@ -46,11 +46,6 @@ export class AppComponent {
       isAdmin: false
     },
     {
-      label: "Création Sortie",
-      link: "/sortieCreate",
-      isAdmin: false
-    },
-    {
       label: "Liste des Utilisateurs",
       link: "/listUser",
       isAdmin: true

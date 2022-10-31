@@ -31,6 +31,11 @@ export class UserService {
     }
     return this.getUsers();
   }
+
+  getUserHome(user:string): Observable<User>{
+    return this.httpClient.get<User>("https://127.0.0.1:8000"+user);
+    //return this.getUsers();
+  }
 }
 
 export interface User{

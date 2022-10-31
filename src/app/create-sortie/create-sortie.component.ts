@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Ville, VilleService} from "../service/ville.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-create-sortie',
@@ -9,8 +11,10 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./create-sortie.component.css']
 })
 export class CreateSortieComponent implements OnInit {
+
+
   listLieu = ["Gaumont","Jardins des plantes","La Beaujoire"];
-  listVille = ["Nantes"];
+  //listVille = ["Nantes"];
   registerForm = new FormGroup({
     name: new FormControl("",[Validators.required]),
     ville: new FormControl("",[Validators.required]),
@@ -26,12 +30,15 @@ export class CreateSortieComponent implements OnInit {
     dateLimite: new FormControl("",[Validators.required]),
     campus : new FormControl("",[Validators.required])
   })
-
-  constructor(private httpClient:HttpClient, private router: Router) { }
+  villes$! : Observable<Ville[]>;
+  constructor(private villeService:VilleService, httpClient:HttpClient, private router: Router) { }
+  public error: string = "";
 
   ngOnInit(): void {
-
+    this.villes$ = this.villeService.getVilles();
   }
+
+
 
   onFormSubmit() {
     let name = this.registerForm.controls.name.value;

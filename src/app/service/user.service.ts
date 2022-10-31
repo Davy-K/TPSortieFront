@@ -19,7 +19,12 @@ export class UserService {
   }
 
   deleteUser(user:User): Observable<User[]>{
-    this.httpClient.delete("https://127.0.0.1:8000/api/users/"+user.id).subscribe();
+    if(user.outingsOrganizer == ""){
+      this.httpClient.delete("https://127.0.0.1:8000/api/users/"+user.id).subscribe();
+    }else{
+      user.actif = false;
+      this.updateUser(user);
+    }
     return this.getUsers();
   }
 
@@ -42,5 +47,6 @@ export interface User{
   actif: boolean,
   campus: string,
   userIdentifier: string
+  outingsOrganizer: string
 }
 

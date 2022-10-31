@@ -55,7 +55,7 @@ export class LoginService {
         'Content-Type': 'application/json'
       }))
     }
-
+    console.log("lolo");
     this.httpClient.post<{token: string}>("https://127.0.0.1:8000/api/login_check", {username: email, password: password},httpOptions).subscribe(el=>{
       if(el != null){
         localStorage.setItem("access_token",el.token);

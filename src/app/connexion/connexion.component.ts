@@ -46,10 +46,13 @@ export class ConnexionComponent implements OnInit {
   }
 
   onFormSubmit() {
+    console.log("prout");
     let email = this.authForm.controls.email.value;
     let password = this.authForm.controls.password.value;
     let rememberMe = this.authForm.controls.rememberMe.value;
-
+    console.log(email);
+    console.log(password);
+    console.log(rememberMe);
     if(rememberMe == false){
       this.cookieService.delete("email");
     }

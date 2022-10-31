@@ -1,24 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DatePipe} from "@angular/common";
 import {Router} from "@angular/router";
 import {LoginService} from "../service/login.service";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, tap} from "rxjs";
 import {Sortie, SortieService} from "../service/sortie.service";
+import {User, UserService} from "../service/user.service";
+import {ConditionService} from "../service/condition.service";
+import {Campus, CampusService} from "../service/campus.service";
 
-export interface sortie {
-  name: string;
-  dateSortie: DatePipe;
-  cloture: DatePipe;
-  places: string;
-  state: string;
-  inscrits: boolean;
-  organisator: string;
-  action: string;
-}
-const ELEMENT_DATA : sortie[] = [
 
-];
+/*const ELEMENT_DATA : Sortie = [
+
+];*/
 
 @Component({
   selector: 'app-accueil',
@@ -26,19 +20,44 @@ const ELEMENT_DATA : sortie[] = [
   styleUrls: ['./accueil.component.css']
 })
 export class AccueilComponent implements OnInit {
-  sorties$! : Observable<Sortie[]>;
-  listCampus = [];
+  sorties$!: Observable<Sortie[]>;
+  //nbInscrit: number[] = [];
+  listCampus: string[] = [];
   date = new Date();
-  displayedColumns: string[] = ['name', 'dateSortie', 'cloture', 'places','state','inscrits','organisator','action'];
-  dataSource = ELEMENT_DATA;
+  organisateur$!: Observable<User[]>;
+  campus$!:Observable<Campus[]> ;
+  displayedColumns: string[] = ['name', 'dateSortie', 'cloture', 'places', 'state', 'inscrits', 'organisator', 'action'];
+  //dataSource = ELEMENT_DATA;
 
 
-
-  constructor(private sortieService: SortieService, private router: Router,public loginService: LoginService, private httpClient : HttpClient) {
+  constructor(private campusService : CampusService, private conditionService: ConditionService,private sortieService: SortieService, private userService: UserService, private router: Router, public loginService: LoginService, private httpClient: HttpClient) {
 
   }
+
   ngOnInit(): void {
-    this.sorties$ = this.sortieService.getSorties();
+    console.log(this.listCampus)
+    this.campus$ = this.campusService.getCampus().pipe(
+      tap((campusList:Campus[]) =>{
+        campusList.forEach(el =>{
+          //console.log(el.name)
+          this.listCampus.push(el.name)
+        })
+      })
+    )
+    console.log(this.listCampus)
+    this.sorties$ = this.sortieService.getSorties().pipe(
+      tap((sortieList) => {
+        sortieList.forEach(el => {
+          this.userService.getUserHome(el.organizer as string).subscribe(
+            resp => {
+              el.organizer = resp
+            })
+          this.conditionService.getCondition(el.outingCondition as string).subscribe(
+            resp => {
+              el.outingCondition = resp
+            })
+          //this.nbInscrit.push(el.registereds.length)
+        })
+      }))
   }
-
 }

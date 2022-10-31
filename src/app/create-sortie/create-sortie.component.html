@@ -31,9 +31,9 @@
     <mat-form-field appearance="fill">
       <mat-label>Ville</mat-label>
       <mat-select formControlName="ville">
-        <mat-option *ngFor="let ville of listVille" [value]="ville">
+        <!--<mat-option *ngFor="let ville of listVille" [value]="ville">
           {{ville}}
-        </mat-option>-
+        </mat-option>--->
       </mat-select>
     </mat-form-field>
   </div>
@@ -121,7 +121,7 @@
       <button type="submit" mat-raised-button color="accent" class="Register" (click)="register()" >Enregistrer</button>
     </div>
     <div class="col">
-      <button type="submit" mat-raised-button color="accent" class="cancel" [routerLink]="'/home'" (click)="annuler()">Annuler</button>
+      <button type="submit" mat-raised-button color="accent" class="cancel" [routerLink]="'/home'">Annuler</button>
     </div>
   </div>
 

@@ -15,13 +15,17 @@ export class UserService {
 
   updateUser(user:User): Observable<User[]>{
     this.httpClient.put("https://127.0.0.1:8000/api/users/"+user.id,user).subscribe();
-    console.log('test');
     return this.getUsers();
   }
 
   deleteUser(user:User): Observable<User[]>{
     this.httpClient.delete("https://127.0.0.1:8000/api/users/"+user.id).subscribe();
     return this.getUsers();
+  }
+
+  getUserHome(user:string): Observable<User>{
+    return this.httpClient.get<User>("https://127.0.0.1:8000"+user);
+    //return this.getUsers();
   }
 }
 

@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
 import {LoginService} from "../service/login.service";
+import {HttpClient} from "@angular/common/http";
+import {User, UserService} from "../service/user.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-profil',
@@ -15,11 +18,19 @@ export class ProfilComponent implements OnInit {
   public email = "TestEmail";
   public campus = "TestCampus";
 
-  constructor(private router: Router,public loginService: LoginService) {
+  id: string = "";
+  user$!: Observable<User>;
+
+  constructor(private router: Router, public loginService: LoginService,public userService: UserService, private route: ActivatedRoute) {
 
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+    });
+
+    this.user$ = this.userService.getUserById(this.id);
   }
 
 }

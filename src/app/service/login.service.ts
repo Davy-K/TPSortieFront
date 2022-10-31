@@ -21,10 +21,10 @@ export class LoginService {
   }
 
   verifConnexion(): boolean{
-    let verif;
+    let token;
     let retour;
-    verif = localStorage.getItem("access_token");
-    if(verif == null){
+    token = localStorage.getItem("access_token");
+    if(token == null && token != ""){
       retour = false;
     }else{
       retour = true;
@@ -36,7 +36,7 @@ export class LoginService {
     let retour;
     let role;
     let token = localStorage.getItem("access_token");
-    if (token != null) {
+    if (token != null && token != "") {
       const tokenInfo = this.getDecodedAccessToken(token);
       role = tokenInfo.roles[0];
     }
@@ -55,10 +55,10 @@ export class LoginService {
         'Content-Type': 'application/json'
       }))
     }
-    console.log("lolo");
-    this.httpClient.post<{token: string}>("https://127.0.0.1:8000/api/login_check", {username: email, password: password},httpOptions).subscribe(el=>{
+    this.httpClient.post<{token: string,refresh_token :string}>("https://127.0.0.1:8000/api/login_check", {username: email, password: password},httpOptions).subscribe(el=>{
       if(el != null){
         localStorage.setItem("access_token",el.token);
+        localStorage.setItem("refresh_token",el.refresh_token);
         this.loggedIn$.next(true);
 
         if(rememberMe){
@@ -74,6 +74,7 @@ export class LoginService {
   }
   disconnect(){
     localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
     this.router.navigate(['/']);
     this.loggedIn$.next(false);
   }

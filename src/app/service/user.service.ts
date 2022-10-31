@@ -18,6 +18,10 @@ export class UserService {
     return this.getUsers();
   }
 
+  getUserById(id:string) : Observable<User>{
+    return this.httpClient.get<User>("https://127.0.0.1:8000/api/users/"+id)
+  }
+
   deleteUser(user:User): Observable<User[]>{
     if(user.outingsOrganizer == ""){
       this.httpClient.delete("https://127.0.0.1:8000/api/users/"+user.id).subscribe();

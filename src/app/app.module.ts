@@ -50,7 +50,7 @@ import {AuthInterceptor} from "./interceptors/interceptor";
     MatFormFieldModule,
     RouterModule.forRoot([
       {path: '', component: ConnexionComponent},
-      {path: 'profil', component: ProfilComponent},
+      {path: 'profil/:id', component: ProfilComponent},
       {path: 'sortieCreate', component: CreateSortieComponent},
       {path: 'home', component: AccueilComponent},
       {path: 'listUser', component: ListUserComponent}

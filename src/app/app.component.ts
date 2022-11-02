@@ -42,7 +42,7 @@ export class AppComponent {
     },
     {
       label: "Mon Profil",
-      link: "/",
+      link: "/monProfil",
       isAdmin: false
     },
     {

@@ -11,15 +11,10 @@ import {Observable} from "rxjs";
   styleUrls: ['./profil.component.css']
 })
 export class ProfilComponent implements OnInit {
-  public login = "TestLogin";
-  public prenom = "TestPrenom";
-  public nom = "TestNom";
-  public telephone = "TestTelephone";
-  public email = "TestEmail";
-  public campus = "TestCampus";
 
   id: string = "";
   user$!: Observable<User>;
+
 
   constructor(private router: Router, public loginService: LoginService,public userService: UserService, private route: ActivatedRoute) {
 
@@ -30,7 +25,9 @@ export class ProfilComponent implements OnInit {
       this.id = params['id'];
     });
 
-    this.user$ = this.userService.getUserById(this.id);
+     this.user$ = this.userService.getUserById(this.id);
+
+
   }
 
 }

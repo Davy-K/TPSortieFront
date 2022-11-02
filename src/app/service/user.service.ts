@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, tap} from "rxjs";
+import {CampusService} from "./campus.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private httpClient : HttpClient) { }
+  constructor(private httpClient : HttpClient, private  campusService : CampusService) { }
 
   getUsers() : Observable<User[]>{
     return this.httpClient.get<User[]>("https://127.0.0.1:8000/api/users.json")
@@ -19,7 +20,11 @@ export class UserService {
   }
 
   getUserById(id:string) : Observable<User>{
-    return this.httpClient.get<User>("https://127.0.0.1:8000/api/users/"+id)
+    return this.httpClient.get<User>("https://127.0.0.1:8000/api/users/"+id).pipe(tap((user)=>{
+      this.campusService.getCampusById(user.campus).subscribe(campus =>{
+        user.campus = campus.name;
+      });
+    }));
   }
 
   deleteUser(user:User): Observable<User[]>{

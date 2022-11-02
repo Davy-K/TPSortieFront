@@ -1,0 +1,93 @@
+<div *ngIf="loginService.verifConnexion();else noConnect">
+  <div class="container">
+    <h1 class="mt-3 flex-row d-flex justify-content-center" id="title">Mon Profil</h1>
+    <form [formGroup]="userInfoForm" (ngSubmit)="onFormSubmit()">
+      <div *ngIf="user$ |async as user">
+        <div class="d-flex">
+          <div class=" d-flex  align-self-center">
+            <img class="d-flex ms-5 " src="/assets/icon_pers.png">
+          </div>
+
+          <div class="d-flex flex-column align-items-end">
+            <div class="me-10">
+              <label class="px-2">Pseudo :</label>
+              <mat-form-field appearance="fill">
+                <input [formControl]="userInfoForm.controls.pseudo" formControlName="pseudo" matInput/>
+              </mat-form-field>
+            </div>
+            <div>
+              <label class="px-2">Prénom :</label>
+              <mat-form-field appearance="fill">
+                <input [formControl]="userInfoForm.controls.prenom" formControlName="prenom" matInput/>
+              </mat-form-field>
+            </div>
+            <div>
+              <label class="px-2">Nom :</label>
+              <mat-form-field appearance="fill">
+                <input [formControl]="userInfoForm.controls.nom" formControlName="nom" matInput/>
+              </mat-form-field>
+            </div>
+            <div>
+              <label class="px-2">Téléphone :</label>
+              <mat-form-field appearance="fill">
+                <input [formControl]="userInfoForm.controls.telephone" formControlName="telephone" matInput/>
+              </mat-form-field>
+            </div>
+            <div>
+              <label class="px-2">Email :</label>
+              <mat-form-field appearance="fill">
+                <input [formControl]="userInfoForm.controls.email" formControlName="email" matInput/>
+              </mat-form-field>
+            </div>
+            <div>
+              <label class="px-2">Mot de Passe :</label>
+              <mat-form-field appearance="fill">
+                <input [formControl]="userInfoForm.controls.password" formControlName="password" matInput
+                       [type]="hide ? 'password' : 'text'"/>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+            <div>
+              <label class="px-2">Confirmation :</label>
+              <mat-form-field appearance="fill">
+                <input [formControl]="userInfoForm.controls.passwordConfirm" formControlName="passwordConfirm" matInput
+                       [type]="hide ? 'password' : 'text'"/>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+            <div>
+              <label class="px-2">Campus :</label>
+              <mat-form-field appearance="fill">
+                <mat-select [formControl]="userInfoForm.controls.campus" name="food">
+                  <mat-option *ngFor="let campus of listCampus" [value]="campus.id">
+                    {{campus.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="mt-3 flex-row d-flex justify-content-center">
+          <div class="px-5">
+            <button type="submit" mat-raised-button color="accent">Enrengistrer</button>
+          </div>
+          <button mat-raised-button color="accent" [routerLink]="'/home'">Retour</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<ng-template #noConnect>
+  <div class="container ">
+    <h1 class="mt-3 flex-row d-flex justify-content-center">Vous n'êtes pas connecté !</h1>
+    <div class="mt-3 flex-row d-flex justify-content-center">
+      <button mat-raised-button color="accent" [routerLink]="'/'">Connection</button>
+    </div>
+  </div>
+</ng-template>

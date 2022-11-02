@@ -24,7 +24,7 @@ export class LoginService {
     let token;
     let retour;
     token = localStorage.getItem("access_token");
-    if(token == null && token != ""){
+    if(token == null || token == ""){
       retour = false;
     }else{
       retour = true;
@@ -55,7 +55,7 @@ export class LoginService {
         'Content-Type': 'application/json'
       }))
     }
-    this.httpClient.post<{token: string,refresh_token :string}>("https://127.0.0.1:8000/api/login_check", {username: email, password: password},httpOptions).subscribe(el=>{
+    this.httpClient.post<{token: string,refresh_token :string,data:Data}>("https://127.0.0.1:8000/api/login_check", {username: email, password: password},httpOptions).subscribe(el=>{
       if(el != null){
         localStorage.setItem("access_token",el.token);
         localStorage.setItem("refresh_token",el.refresh_token);
@@ -64,6 +64,7 @@ export class LoginService {
         if(rememberMe){
           this.cookieService.set('email',email);
         }
+        this.cookieService.set('id_user',el.data.id);
         this.router.navigate(['/home']);
       }
     },
@@ -86,4 +87,9 @@ export class LoginService {
       return null;
     }
   }
+
+}
+
+export interface Data{
+  id:string
 }

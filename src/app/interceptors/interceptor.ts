@@ -26,12 +26,19 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(httpRequest.clone({headers})).pipe(
       catchError((error) => {
           if (error instanceof HttpErrorResponse) {
-            localStorage.setItem('access_token', '');
-            let refresh_token = localStorage.getItem('refresh_token');
-            this.httpClient.post<{ token: string }>("https:/127.0.0.1:8000/api/token/refresh", {refresh_token}).subscribe(el => {
-              localStorage.setItem('access_token', el.token);
-            });
+            switch (error.status){
+              case 401:
+                localStorage.setItem('access_token', '');
+                let refresh_token = localStorage.getItem('refresh_token');
+                this.httpClient.post<{ token: string }>("https:/127.0.0.1:8000/api/token/refresh", {refresh_token}).subscribe(el => {
+                  localStorage.setItem('access_token', el.token);
+                });
+                break;
+              case 404:
+                console.log('Erreur Connexion Serveur');
+            }
 
+            console.log('test')
           }
           return throwError(error);
         }

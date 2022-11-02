@@ -13,6 +13,10 @@ export class CampusService {
   getCampus() : Observable<Campus[]>{
     return this.httpClient.get<Campus[]>("https://127.0.0.1:8000/api/campuses.json")
   }
+
+  getCampusById(campus:string) : Observable<Campus>{
+    return this.httpClient.get<Campus>("https://127.0.0.1:8000"+campus)
+  }
 }
 
 export interface Campus{

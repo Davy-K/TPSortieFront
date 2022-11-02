@@ -24,6 +24,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatTableModule} from "@angular/material/table";
 import { ListUserComponent } from './list-user/list-user.component';
 import {AuthInterceptor} from "./interceptors/interceptor";
+import { MonProfilComponent } from './mon-profil/mon-profil.component';
 
 
 
@@ -35,6 +36,7 @@ import {AuthInterceptor} from "./interceptors/interceptor";
     ProfilComponent,
     AccueilComponent,
     ListUserComponent,
+    MonProfilComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,9 +52,10 @@ import {AuthInterceptor} from "./interceptors/interceptor";
     MatFormFieldModule,
     RouterModule.forRoot([
       {path: '', component: ConnexionComponent},
-      {path: 'profil', component: ProfilComponent},
+      {path: 'profil/:id', component: ProfilComponent},
       {path: 'sortieCreate', component: CreateSortieComponent},
       {path: 'home', component: AccueilComponent},
+      {path: 'monProfil', component: MonProfilComponent},
       {path: 'listUser', component: ListUserComponent}
     ]),
     BrowserAnimationsModule,

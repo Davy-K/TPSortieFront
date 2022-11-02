@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from "@angular/forms";
 import {DatePipe} from "@angular/common";
 import {Router} from "@angular/router";
 import {LoginService} from "../service/login.service";
@@ -21,30 +22,37 @@ import {Campus, CampusService} from "../service/campus.service";
 })
 export class AccueilComponent implements OnInit {
   sorties$!: Observable<Sortie[]>;
+  tmpSorties$!: Observable<Sortie[]>;
   //nbInscrit: number[] = [];
   listCampus: string[] = [];
   date = new Date();
   organisateur$!: Observable<User[]>;
-  campus$!:Observable<Campus[]> ;
+  campuses$!:Observable<Campus[]> ;
   displayedColumns: string[] = ['name', 'dateSortie', 'cloture', 'places', 'state', 'inscrits', 'organisator', 'action'];
   //dataSource = ELEMENT_DATA;
+  filtreForm = new FormGroup({
+    campus: new FormControl(""),
+    name: new FormControl(""),
+    dateD: new FormControl(""),
+    dateF : new FormControl(""),
 
+  })
 
   constructor(private campusService : CampusService, private conditionService: ConditionService,private sortieService: SortieService, private userService: UserService, private router: Router, public loginService: LoginService, private httpClient: HttpClient) {
 
   }
 
   ngOnInit(): void {
-    console.log(this.listCampus)
-    this.campus$ = this.campusService.getCampus().pipe(
+    //console.log(this.listCampus)
+    this.campuses$ = this.campusService.getCampus().pipe(
       tap((campusList:Campus[]) =>{
         campusList.forEach(el =>{
-          //console.log(el.name)
+
           this.listCampus.push(el.name)
         })
       })
     )
-    console.log(this.listCampus)
+    //console.log(this.listCampus)
     this.sorties$ = this.sortieService.getSorties().pipe(
       tap((sortieList) => {
         sortieList.forEach(el => {
@@ -59,5 +67,41 @@ export class AccueilComponent implements OnInit {
           //this.nbInscrit.push(el.registereds.length)
         })
       }))
+  }
+
+  refreshTable(){
+    this.tmpSorties$ = this.sorties$;
+
+    /*if(){
+
+    }*/
+  }
+
+  onFormSubmit(){
+    let campus = this.filtreForm.value.campus;
+    let name = this.filtreForm.value.name;
+    let dateD = this.filtreForm.value.dateD;
+    let dateF =this.filtreForm.value.dateF;
+
+    if(campus != ""){
+      this.sorties$ = this.sortieService.getSorties().pipe(
+        tap((sortieList) => {
+          sortieList.forEach(el => {
+            this.userService.getUserHome(el.organizer as string).subscribe(
+              resp => {
+                el.organizer = resp
+              })
+            this.conditionService.getCondition(el.outingCondition as string).subscribe(
+              resp => {
+                el.outingCondition = resp
+              })
+            //this.nbInscrit.push(el.registereds.length)
+          })
+        }))
+    }
+    // console.log(campus);
+    // console.log(name);
+    // console.log(dateD);
+    // console.log(dateF);
   }
 }

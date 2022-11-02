@@ -5,13 +5,14 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router"
 import {CookieService} from "ngx-cookie-service";
 import jwt_decode from 'jwt-decode';
+import {UserService} from "./user.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private httpClient:HttpClient,private router: Router,private cookieService: CookieService) {
+  constructor(private httpClient:HttpClient,private router: Router,private cookieService: CookieService,private userService:UserService) {
   }
   public error: string = '';
   private loggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(!!localStorage.getItem("access_token"));
@@ -48,7 +49,7 @@ export class LoginService {
     return retour;
   }
 
-  getUser(email: string, password: string,rememberMe:boolean) {
+  getUser(email: string, password: string,rememberMe:boolean): string {
     this.error = '';
     const httpOptions ={
       headers: new HttpHeaders(({
@@ -59,19 +60,28 @@ export class LoginService {
       if(el != null){
         localStorage.setItem("access_token",el.token);
         localStorage.setItem("refresh_token",el.refresh_token);
-        this.loggedIn$.next(true);
+        this.userService.getUserById(el.data.id).subscribe(user=>{
+          if(user.actif == true){
 
-        if(rememberMe){
-          this.cookieService.set('email',email);
-        }
-        this.cookieService.set('id_user',el.data.id);
-        this.router.navigate(['/home']);
+            this.loggedIn$.next(true);
+
+            if(rememberMe){
+              this.cookieService.set('email',email);
+            }
+            this.cookieService.set('id_user',el.data.id);
+            this.router.navigate(['/home']);
+            this.error = "";
+          }else{
+            this.error = "Compte pas Actif";
+          }
+        })
       }
     },
     error => {
       this.error = error.message;
     }
     );
+    return this.error;
   }
   disconnect(){
     localStorage.removeItem("access_token");

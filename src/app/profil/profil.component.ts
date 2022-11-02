@@ -12,7 +12,7 @@ import {Observable} from "rxjs";
 })
 export class ProfilComponent implements OnInit {
 
-  id: string = "";
+  pseudo: string = "";
   user$!: Observable<User>;
 
 
@@ -22,10 +22,10 @@ export class ProfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.id = params['id'];
+      this.pseudo = params['pseudo'];
     });
 
-     this.user$ = this.userService.getUserById(this.id);
+     this.user$ = this.userService.getUserByPseudo(this.pseudo);
 
 
   }

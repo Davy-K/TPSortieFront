@@ -28,7 +28,6 @@ export class ListUserComponent implements OnInit {
   }
 
   changeActif(user:User) {
-    console.log(user)
     user.actif = !user.actif;
     this.users$ = this.userService.updateUser(user);
   }

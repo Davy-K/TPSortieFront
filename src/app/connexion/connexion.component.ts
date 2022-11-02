@@ -27,7 +27,7 @@ export class ConnexionComponent implements OnInit {
   })
 
   matcher = new MyErrorStateMatcher();
-
+  erreurActif: string = "";
   constructor(private cookieService: CookieService, public loginService: LoginService) {
     if (this.cookieService.get("email") != null) {
       this.authForm.controls.email.setValue(this.cookieService.get('email'));
@@ -54,7 +54,7 @@ export class ConnexionComponent implements OnInit {
     }
 
     if (email != null && password != null && rememberMe != null) {
-      this.loginService.getUser(email, password,rememberMe);
+      this.erreurActif =this.loginService.getUser(email, password,rememberMe);
     }
 
   }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable, tap} from "rxjs";
-import {CampusService} from "./campus.service";
+import {Campus, CampusService} from "./campus.service";
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +20,7 @@ export class UserService {
   }
 
   getUserById(id:string) : Observable<User>{
-    return this.httpClient.get<User>("https://127.0.0.1:8000/api/users/"+id).pipe(tap((user)=>{
-      this.campusService.getCampusById(user.campus).subscribe(campus =>{
-        user.campus = campus.name;
-      });
-    }));
+    return this.httpClient.get<User>("https://127.0.0.1:8000/api/users/"+id);
   }
 
   deleteUser(user:User): Observable<User[]>{
@@ -54,7 +50,7 @@ export interface User{
   phone: string,
   administrator: boolean,
   actif: boolean,
-  campus: string,
+  campus: Campus,
   userIdentifier: string
   outingsOrganizer: string
 }

@@ -27,8 +27,13 @@
     </mat-error>
   </mat-form-field>
   <mat-error *ngIf="loginService.error !='' ">
-    Email ou Mot de passe Incorrect !
+    <div *ngIf="loginService.error == 'Compte pas Actif'; else EmailMdpIncorrect">
+      Le Compte à été désactiver !
+    </div>
   </mat-error>
+  <ng-template #EmailMdpIncorrect>
+    Email ou Mot de passe Incorrect !
+  </ng-template>
   <div>
     <mat-checkbox formControlName="rememberMe">Se souvenir de moi</mat-checkbox>
     <a href="" class="m-lg-4">Mot de passe oublié</a>

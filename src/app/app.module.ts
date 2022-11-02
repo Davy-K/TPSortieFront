@@ -28,6 +28,7 @@ import { MonProfilComponent } from './mon-profil/mon-profil.component';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +53,7 @@ import { MonProfilComponent } from './mon-profil/mon-profil.component';
     MatFormFieldModule,
     RouterModule.forRoot([
       {path: '', component: ConnexionComponent},
-      {path: 'profil/:id', component: ProfilComponent},
+      {path: 'profil/:pseudo', component: ProfilComponent},
       {path: 'sortieCreate', component: CreateSortieComponent},
       {path: 'home', component: AccueilComponent},
       {path: 'monProfil', component: MonProfilComponent},

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {LoginService} from "../service/login.service";
-import {User, UserService} from "../service/user.service";
+import {User, UserCampusURI, UserService} from "../service/user.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Campus, CampusService} from "../service/campus.service";
 import {Observable, tap} from "rxjs";
@@ -24,12 +24,17 @@ export class MonProfilComponent implements OnInit {
     passwordConfirm: new FormControl(""),
     campus: new FormControl("",[Validators.required]),
   })
-  listCampus: Campus[] =[];
-  selectedValue: string = "";
+  userURI! : UserCampusURI;
+  selectedValue!: number;
   user$!: Observable<User>;
-  constructor(private cookieService: CookieService,private router: Router, public loginService: LoginService,public userService: UserService, private  campusService : CampusService) { }
+  campus$!:Observable<Campus[]> ;
+  constructor(private cookieService: CookieService,private router: Router, public loginService: LoginService,public userService: UserService, private  campusService : CampusService) {
+
+  }
 
   ngOnInit(): void {
+
+    this.campus$ = this.campusService.getCampus();
 
     this.user$ = this.userService.getUserById(this.cookieService.get('id_user')).pipe(tap(user=>{
       this.userInfoForm.controls.pseudo.setValue(user.pseudo)
@@ -37,13 +42,33 @@ export class MonProfilComponent implements OnInit {
       this.userInfoForm.controls.nom.setValue(user.name)
       this.userInfoForm.controls.telephone.setValue(user.phone)
       this.userInfoForm.controls.email.setValue(user.email)
-
+      this.userInfoForm.controls.campus.setValue(user.campus.name)
+      this.selectedValue = user.campus.id;
     }))
-    //this.listCampus.push();
   }
 
 
-  onFormSubmit(){
+  onFormSubmit(user:User){
 
+    let pseudo = this.userInfoForm.controls.pseudo.value
+    let prenom = this.userInfoForm.controls.prenom.value
+    let nom = this.userInfoForm.controls.nom.value
+    let telephone = this.userInfoForm.controls.telephone.value
+    let email = this.userInfoForm.controls.email.value
+    let campus = this.userInfoForm.controls.campus.value
+
+    if(pseudo != null && prenom != null && nom != null && telephone != null && email != null && campus != null){
+
+      this.userURI={
+        id: ""+user.id,
+        pseudo: pseudo,
+        firstname: prenom,
+        name: nom,
+        phone: telephone,
+        email: email,
+        campus: "api/campuses/"+campus
+      }
+      this.user$ = this.userService.updateUserCampusURI(this.userURI)
+    }
   }
 }

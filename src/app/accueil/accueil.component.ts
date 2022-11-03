@@ -10,6 +10,7 @@ import {User, UserService} from "../service/user.service";
 import {ConditionService} from "../service/condition.service";
 import {Campus, CampusService} from "../service/campus.service";
 import {CookieService} from "ngx-cookie-service";
+import { Store } from '../store/store';
 
 
 /*const ELEMENT_DATA : Sortie = [
@@ -34,6 +35,8 @@ export class AccueilComponent implements OnInit {
   usernameId: string ="";
   displayedColumns: string[] = ['name', 'dateSortie', 'cloture', 'places', 'state', 'inscrits', 'organisator', 'action'];
   //dataSource = ELEMENT_DATA;
+  store!: Store;
+
   filtreForm = new FormGroup({
     campus: new FormControl(""),
     name: new FormControl(""),
@@ -60,7 +63,8 @@ export class AccueilComponent implements OnInit {
       })
     )
     //console.log(this.listCampus)
-    this.user$ = this.userService.getSortieUser(this.cookieService.get("id_user")).pipe(
+    this.store=Store.getInstance()
+    this.user$ = this.userService.getSortieUser(this.store.get(['user','id'])).pipe(
       tap((monUser: User) => {
         this.listSortie.push(monUser.outings)
         this.listSortie.push(monUser.outingsOrganizer)

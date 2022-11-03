@@ -1,4 +1,4 @@
-<form [formGroup]="authForm" (ngSubmit)="onFormSubmit()">
+<form [formGroup]="authForm" >
   <h1>Connexion</h1>
 
   <mat-form-field appearance="fill">
@@ -18,8 +18,7 @@
   <mat-form-field appearance="fill">
     <mat-label>Mot de Passe</mat-label>
     <input name="mdp" id="mdp" formControlName="password" matInput [type]="hide ? 'password' : 'text'"/>
-    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide">
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
     <mat-error *ngIf="password?.errors?.['required']">
@@ -38,7 +37,6 @@
     <mat-checkbox formControlName="rememberMe">Se souvenir de moi</mat-checkbox>
     <a href="" class="m-lg-4">Mot de passe oublié</a>
   </div>
-
-  <button class="mt-2" type="submit" mat-raised-button color="accent">Connexion</button>
+  <button class="mt-2" (click)="onFormSubmit()" type="submit" mat-raised-button color="accent">Connexion</button>
 </form>
 

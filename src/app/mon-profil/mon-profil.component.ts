@@ -37,7 +37,6 @@ export class MonProfilComponent implements OnInit {
   ngOnInit(): void {
     this.store = Store.getInstance()
     this.campus$ = this.campusService.getCampus();
-    console.log(this.store.get(['user', 'id']));
     this.user$ = this.userService.getUserById(this.store.get(['user','id'])).pipe(tap(user=>{
       this.userInfoForm.controls.pseudo.setValue(user.pseudo)
       this.userInfoForm.controls.prenom.setValue(user.firstname)

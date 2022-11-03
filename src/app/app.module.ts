@@ -25,6 +25,9 @@ import {MatTableModule} from "@angular/material/table";
 import { ListUserComponent,AddUserDialog } from './list-user/list-user.component';
 import {AuthInterceptor} from "./interceptors/interceptor";
 import { MonProfilComponent } from './mon-profil/mon-profil.component';
+import { AfficherSortieComponent } from './afficher-sortie/afficher-sortie.component';
+
+
 import {MatDialogModule} from '@angular/material/dialog';
 
 
@@ -38,6 +41,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     ListUserComponent,
     MonProfilComponent,
     AddUserDialog
+    AfficherSortieComponent,
   ],
   imports: [
     BrowserModule,

@@ -40,7 +40,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     AccueilComponent,
     ListUserComponent,
     MonProfilComponent,
-    AddUserDialog
+    AddUserDialog,
     AfficherSortieComponent,
   ],
   imports: [
@@ -62,7 +62,8 @@ import {MatDialogModule} from '@angular/material/dialog';
       {path: 'sortieCreate', component: CreateSortieComponent},
       {path: 'home', component: AccueilComponent},
       {path: 'monProfil', component: MonProfilComponent},
-      {path: 'listUser', component: ListUserComponent}
+      {path: 'listUser', component: ListUserComponent},
+      {path: 'sortie/:id',component: AfficherSortieComponent}
     ]),
     BrowserAnimationsModule,
     MatIconModule,

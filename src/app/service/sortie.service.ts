@@ -23,6 +23,10 @@ export class SortieService {
     this.httpClient.put("https://127.0.0.1:8000/api/outings/"+sortie.id,sortie).subscribe();
     return this.getSorties();
   }
+
+  getUneSortie(id:string):Observable<Sortie>{
+    return this.httpClient.get<Sortie>("https://127.0.0.1:8000/api/outings/"+id)
+  }
 }
 
 export interface Sortie{

@@ -1,1 +1,70 @@
-<p>afficher-sortie works!</p>
+<div *ngIf="loginService.verifConnexion();else noConnect">
+  <div *ngIf="sortie$ |async as sortie">
+
+    <div class="container">
+      <h1 class="mt-3 flex-row d-flex justify-content-center" id="title">{{sortie.name}}</h1>
+      <div class="row">
+        <div class="col">
+          <img class="d-flex " src="/assets/icon_pers.png">
+        </div>
+        <div class="col">
+          <mat-card class="mt-2 " id="card">
+            <mat-card-content>
+              <div class="mt-2" id="name">
+                <h2>Nom de la sortie : {{sortie.name}}</h2>
+              </div>
+              <div id="dateHourStart">
+                <h2>Date et heure de la sortie : {{sortie.dateHourStart|date:'DD/MM/AAAA hh:mm:ss'}}</h2>
+              </div>
+              <div id="dateLimitRegistration">
+                <h2>Date limite d'inscription : {{sortie.dateLimitRegistration}}</h2>
+              </div>
+              <div id="nbRegistrationMax">
+                <h2>Nombre de places : {{sortie.nbRegistrationMax}}</h2>
+              </div>
+              <div id="duration">
+                <h2>Durée : {{sortie.duration}} hours</h2>
+              </div>
+              <div id="commentaire">
+                <h2>Description et infos : {{sortie.commentaire}}</h2>
+              </div>
+              <div id="campus">
+                <h2>Campus : {{sortie.campus}}</h2>
+              </div>
+              <div id="lieu">
+                <h2>Lieu : {{sortie.lieu}}</h2>
+              </div>
+              <div id="rue">
+                <h2>Rue : {{sortie.rue}}</h2>
+              </div>
+              <div id="cp">
+                <h2>Code Postal : {{sortie.cp}}</h2>
+              </div>
+              <div id="latitude">
+                <h2>Latitude : {{sortie.latitude}}</h2>
+              </div>
+
+              <div id="longitude">
+                <h2>Longitude : {{sortie.longitude}}</h2>
+              </div>
+
+
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="col"></div>
+      </div>
+      <div class="mt-3 flex-row d-flex justify-content-center">
+        <button mat-raised-button color="accent" [routerLink]="'/home'">Retour</button>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #noConnect>
+  <div class="container ">
+    <h1 class="mt-3 flex-row d-flex justify-content-center">Vous n'êtes pas connecté !</h1>
+    <div class="mt-3 flex-row d-flex justify-content-center">
+      <button mat-raised-button color="accent" [routerLink]="'/'">Connection</button>
+    </div>
+  </div>
+</ng-template>

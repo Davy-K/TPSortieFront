@@ -26,8 +26,6 @@ export class ProfilComponent implements OnInit {
     });
 
      this.user$ = this.userService.getUserByPseudo(this.pseudo);
-
-
   }
 
 }

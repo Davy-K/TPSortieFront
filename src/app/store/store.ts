@@ -2,9 +2,6 @@ export class Store {
   private static instance: Store;
 
   private state = {
-    data: {
-      outgoings: [],
-    },
     user: {
       id: 0
     }

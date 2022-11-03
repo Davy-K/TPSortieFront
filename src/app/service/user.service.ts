@@ -14,6 +14,10 @@ export class UserService {
     return this.httpClient.get<User[]>("https://127.0.0.1:8000/api/users.json")
   }
 
+  getUserByEmail(email:string) : Observable<User>{
+    return this.httpClient.get<User>("https://localhost:8000/api/research/userByEmail?email="+email);
+  }
+
   updateUser(user:User): Observable<User[]>{
 
     this.httpClient.put("https://127.0.0.1:8000/api/users/"+user.id,user).subscribe();

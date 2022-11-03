@@ -45,6 +45,10 @@ export class UserService {
     return this.httpClient.get<User>("https://127.0.0.1:8000"+user);
     //return this.getUsers();
   }
+
+  getSortieUser(id:string):Observable<User>{
+    return this.httpClient.get<User>("https://127.0.0.1:8000/api/users/"+id);
+  }
 }
 
 export interface User{
@@ -59,7 +63,8 @@ export interface User{
   administrator: boolean,
   actif: boolean,
   campus: Campus,
-  userIdentifier: string
+  userIdentifier: string,
+  outings: string,
   outingsOrganizer: string
 }
 

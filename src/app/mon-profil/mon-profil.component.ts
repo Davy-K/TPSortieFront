@@ -6,6 +6,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Campus, CampusService} from "../service/campus.service";
 import {Observable, tap} from "rxjs";
 import {CookieService} from "ngx-cookie-service";
+import {Store} from "../store/store";
 
 @Component({
   selector: 'app-mon-profil',
@@ -28,15 +29,16 @@ export class MonProfilComponent implements OnInit {
   selectedValue!: number;
   user$!: Observable<User>;
   campus$!:Observable<Campus[]> ;
+  store!:Store;
   constructor(private cookieService: CookieService,private router: Router, public loginService: LoginService,public userService: UserService, private  campusService : CampusService) {
 
   }
 
   ngOnInit(): void {
-
+    this.store = Store.getInstance()
     this.campus$ = this.campusService.getCampus();
-
-    this.user$ = this.userService.getUserById(this.cookieService.get('id_user')).pipe(tap(user=>{
+    console.log(this.store.get(['user', 'id']));
+    this.user$ = this.userService.getUserById(this.store.get(['user','id'])).pipe(tap(user=>{
       this.userInfoForm.controls.pseudo.setValue(user.pseudo)
       this.userInfoForm.controls.prenom.setValue(user.firstname)
       this.userInfoForm.controls.nom.setValue(user.name)

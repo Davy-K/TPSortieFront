@@ -45,6 +45,8 @@ export class ConnexionComponent implements OnInit {
     return this.authForm.get('password');
   }
 
+
+
   onFormSubmit() {
     let email = this.authForm.controls.email.value;
     let password = this.authForm.controls.password.value;

@@ -25,6 +25,7 @@ import { Store } from '../store/store';
 export class AccueilComponent implements OnInit {
   sorties$!: Observable<Sortie[]>;
   tmpSorties$!: Observable<Sortie[]>;
+  username!:string;
   //nbInscrit: number[] = [];
   user$!: Observable<User>;
   listCampus: string[] = [];
@@ -64,12 +65,18 @@ export class AccueilComponent implements OnInit {
     )
     //console.log(this.listCampus)
     this.store=Store.getInstance()
-    this.user$ = this.userService.getSortieUser(this.store.get(['user','id'])).pipe(
-      tap((monUser: User) => {
-        this.listSortie.push(monUser.outings)
-        this.listSortie.push(monUser.outingsOrganizer)
+    //console.log(this.store.get(['user','id']))
+    this.user$ = this.userService.getUserById(this.store.get(['user','id'])).pipe(tap(user=>{
+        console.log(user.name)
+        this.username = user.name
     }
     ))
+
+    this.sorties$ = this.sortieService.getSorties()
+    /*tap((sortieList:Sortie[]) =>{
+
+  }
+  )*/
 
     // this.sorties$ = this.sortieService.getSorties().pipe(
     //   tap((sortieList) => {
@@ -93,6 +100,14 @@ export class AccueilComponent implements OnInit {
     /*if(){
 
     }*/
+  }
+
+  inscrit(mesUser:User[]) :boolean{
+    let present: boolean= false;
+    if (mesUser.find(el=> el.id == this.store.get(['user','id']))){
+      present = true;
+    }
+    return present;
   }
 
   onFormSubmit(){

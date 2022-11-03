@@ -47,7 +47,8 @@ export class UserService {
   }
 
   getSortieUser(id:string):Observable<User>{
-    return this.httpClient.get<User>("https://127.0.0.1:8000/api/users/"+id);
+    //console.log("https://127.0.0.1:8000/api/users/"+id)
+    return this.httpClient.get<User>("https://localhost:8000/api/users/"+id);
   }
 }
 

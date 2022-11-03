@@ -1,0 +1,80 @@
+<h1 class="mt-3 flex-row d-flex justify-content-center" id="title">Ajouter Utilisateur</h1>
+<form [formGroup]="userForm">
+
+  <div class=" d-flex flex-column align-items-end">
+    <div>
+      <label class="px-2">Pseudo :</label>
+      <mat-form-field appearance="fill">
+        <input [formControl]="userForm.controls.pseudo" formControlName="pseudo" matInput/>
+      </mat-form-field>
+    </div>
+    <div>
+      <label class="px-2">Prénom :</label>
+      <mat-form-field appearance="fill">
+        <input [formControl]="userForm.controls.prenom" formControlName="prenom" matInput/>
+      </mat-form-field>
+    </div>
+    <div>
+      <label class="px-2">Nom :</label>
+      <mat-form-field appearance="fill">
+        <input [formControl]="userForm.controls.nom" formControlName="nom" matInput/>
+      </mat-form-field>
+    </div>
+    <div>
+      <label class="px-2">Téléphone :</label>
+      <mat-form-field appearance="fill">
+        <input [formControl]="userForm.controls.telephone" formControlName="telephone" matInput/>
+      </mat-form-field>
+    </div>
+    <div>
+      <label class="px-2">Email :</label>
+      <mat-form-field appearance="fill">
+        <input [formControl]="userForm.controls.email" formControlName="email" matInput/>
+      </mat-form-field>
+    </div>
+    <div>
+      <label class="px-2">Campus :</label>
+      <mat-form-field appearance="fill">
+        <mat-select [formControl]="userForm.controls.campus" [(ngModel)]="selectedValue">
+          <mat-option *ngFor="let campus of campus$ | async " [value]="campus.id">
+            {{campus.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <label class="px-2">Mot de passe :</label>
+      <mat-form-field appearance="fill">
+        <input [formControl]="userForm.controls.password" formControlName="password" matInput
+               [type]="hide ? 'password' : 'text'"/>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <div>
+      <label class="px-2">Confirmation :</label>
+      <mat-form-field appearance="fill">
+        <input [formControl]="userForm.controls.passwordConfirm" formControlName="passwordConfirm" matInput
+               [type]="hide ? 'password' : 'text'"/>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-error *ngIf="error">
+        Veuillez bien saisir un mot de passe identique
+      </mat-error>
+    </div>
+  </div>
+
+  <div class="mt-3 flex-row d-flex justify-content-center">
+    <div mat-dialog-actions>
+      <div class="px-5">
+        <button type="submit" (click)="onFormSubmit()" mat-raised-button color="accent">Enregistrer</button>
+      </div>
+      <button mat-raised-button color="accent" mat-dialog-close>Annuler</button>
+    </div>
+  </div>
+</form>

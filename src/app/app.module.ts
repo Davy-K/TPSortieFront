@@ -22,12 +22,13 @@ import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/h
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatTableModule} from "@angular/material/table";
-import { ListUserComponent } from './list-user/list-user.component';
+import { ListUserComponent,AddUserDialog } from './list-user/list-user.component';
 import {AuthInterceptor} from "./interceptors/interceptor";
 import { MonProfilComponent } from './mon-profil/mon-profil.component';
 import { AfficherSortieComponent } from './afficher-sortie/afficher-sortie.component';
 
 
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { AfficherSortieComponent } from './afficher-sortie/afficher-sortie.compo
     AccueilComponent,
     ListUserComponent,
     MonProfilComponent,
+    AddUserDialog
     AfficherSortieComponent,
   ],
   imports: [
@@ -47,6 +49,7 @@ import { AfficherSortieComponent } from './afficher-sortie/afficher-sortie.compo
     MatSidenavModule,
     MatToolbarModule,
     MatButtonModule,
+    MatDialogModule,
     MatCardModule,
     MatInputModule,
     FormsModule,

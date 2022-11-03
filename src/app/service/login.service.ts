@@ -17,7 +17,6 @@ export class LoginService {
   }
   public error: string = '';
   private loggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(!!localStorage.getItem("access_token"));
-  store!: Store ;
 
   get isLoggedIn$(): BehaviorSubject<boolean> {
     return this.loggedIn$;
@@ -71,8 +70,7 @@ export class LoginService {
               this.cookieService.set('email',email);
             }
 
-            this.store = Store.getInstance();
-            this.store.set(['user','id'],el.data.id);
+            sessionStorage.setItem('userId',el.data.id);
 
             this.router.navigate(['/home']);
             this.error = "";

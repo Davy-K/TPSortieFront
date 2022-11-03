@@ -3,8 +3,10 @@ import {BreakpointService} from "./service/breakpoint.service";
 import {LoginService} from "./service/login.service";
 import {Router} from "@angular/router"
 import jwt_decode from 'jwt-decode';
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, lastValueFrom, Observable} from "rxjs";
 import {tap} from "rxjs/operators";
+import {Store} from "./store/store";
+import {User, UserService} from "./service/user.service";
 
 @Component({
   selector: 'app-root',
@@ -16,7 +18,7 @@ export class AppComponent {
   isLoggedIn: boolean = false;
   admin$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor(public breakpointService: BreakpointService, public loginService: LoginService, private router: Router) {
+  constructor(public breakpointService: BreakpointService, public loginService: LoginService, private router: Router, private userService: UserService) {
     this.loginService.isLoggedIn$.subscribe(el => {
       this.isLoggedIn = el;
       let token = localStorage.getItem('access_token');
@@ -26,11 +28,10 @@ export class AppComponent {
         if (role === "ROLE_ADMINISTRATEUR") {
           this.admin$.next(true);
         }
-      }else{
+      } else {
         this.admin$.next(false);
       }
     })
-
 
   }
 

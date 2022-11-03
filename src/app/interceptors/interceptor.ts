@@ -28,10 +28,11 @@ export class AuthInterceptor implements HttpInterceptor {
           if (error instanceof HttpErrorResponse) {
             switch (error.status) {
               case 401:
-                if (error.message == "Invalid JWT Refresh Token") {
+                if (error.error['message'] == "Invalid JWT Refresh Token") {
                   localStorage.removeItem('access_token')
                   localStorage.removeItem('refresh_token')
                   this.router.navigate(['/'])
+                  console.log('test JWT Resfresh Token')
                 } else {
                   localStorage.setItem('access_token', '');
                   let refresh_token = localStorage.getItem('refresh_token');

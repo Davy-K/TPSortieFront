@@ -14,20 +14,31 @@ export class SortieService {
   getSorties() : Observable<Sortie[]>{
     return this.httpClient.get<Sortie[]>("https://127.0.0.1:8000/api/outings.json")
   }
+
+  addSortie(sortie:Sortie): void{
+    this.httpClient.post<Sortie>("https://localhost:8080/api/outings",sortie)
+  }
 }
 
 export interface Sortie{
   id : number,
   name : string,
-  dateHourStart : Date,
+  dateHourStart : string,
   duration : number,
-  dateLimitRegistration : Date,
+  dateLimitRegistration : string,
   nbRegistrationMax : number,
   infosOuting : string,
   organizer	: string | User,
   registereds	: string[] | User[],
   campus : string,
   place	: string,
-  outingCondition : string | Condition
+  outingCondition : string | Condition,
+  longitude : number;
+  latitude : number;
+  commentaire:string;
+  adresse:string;
+  rue:string;
+  lieu:string;
+  cp:string;
 }
 

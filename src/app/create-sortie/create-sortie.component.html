@@ -1,27 +1,30 @@
 <h1><mat-label>  Créer une sortie </mat-label> </h1>
+<form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
 <div class="row justify-content-center">
-<form [formGroup]="registerForm" ]>
 
   <div class="row justify-content-center">
   <div class="d-flex col-4">
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Nom de la sortie</mat-label>
-      <input matInput placeholder="Ex. Cinéma" formControlName="name">
+      <input matInput placeholder="Ex. Cinéma" ngDefaultControl formControlName="name">
     </mat-form-field>
   </div>
   <div class="d-flex col-4">
-    <mat-form-field class="example-full-width" appearance="fill">
+    <mat-form-field appearance="fill">
       <mat-label>Campus</mat-label>
-      <input matInput placeholder="Ex.Nantes" formControlName="campus" [disabled]=true>
+      <mat-select ngDefaultControl>
+        <mat-option *ngFor="let campus of campuses$ | async" [value]="campus.id">
+          {{campus.name}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
-  </div>
   </div>
 
 <div class="row justify-content-center">
   <div class="d-flex col-4">
     <mat-form-field appearance="fill">
       <mat-label>Date et heure de la sortie</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="dateSortie">
+      <input matInput [matDatepicker]="picker" formControlName="dateSortie" ngDefaultControl>
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
@@ -30,10 +33,10 @@
   <div class="d-flex col-4" style="margin-left:8rem;">
     <mat-form-field appearance="fill">
       <mat-label>Ville</mat-label>
-      <mat-select formControlName="ville">
-        <!--<mat-option *ngFor="let ville of listVille" [value]="ville">
-          {{ville}}
-        </mat-option>--->
+      <mat-select ngDefaultControl formControlName="ville">
+        <mat-option *ngFor="let ville of villes$ | async" [value]="ville.id">
+          {{ville.name}}
+        </mat-option>
       </mat-select>
     </mat-form-field>
   </div>
@@ -43,7 +46,7 @@
   <div class="col-4">
     <mat-form-field appearance="fill">
       <mat-label>Date limite inscription</mat-label>
-      <input  matInput [matDatepicker]="sndPicker" formControlName="dateLimite">
+      <input  matInput [matDatepicker]="sndPicker" ngDefaultControl formControlName="dateLimite">
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="sndPicker"></mat-datepicker-toggle>
       <mat-datepicker #sndPicker></mat-datepicker>
@@ -52,9 +55,9 @@
   <div class="d-flex col-4" style="margin-left:8rem;">
     <mat-form-field appearance="fill">
       <mat-label>Lieu</mat-label>
-      <mat-select formControlName="lieu" *ngIf="villes$ | async as villes">
-        <mat-option *ngFor="let element">
-          {{element.name}}
+      <mat-select formControlName="lieu" ngDefaultControl>
+        <mat-option *ngFor="let lieu of lieus$ | async" [value]="lieu.id">
+          {{lieu.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -67,13 +70,13 @@
   <div class="d-flex col-4">
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Nombre de places :</mat-label>
-        <input matInput placeholder="" formControlName="nbPlace">
+        <input matInput placeholder="" ngDefaultControl formControlName="nbPlace">
       </mat-form-field>
   </div>
   <div class="d-flex col-4">
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Rue</mat-label>
-      <input matInput placeholder="Ex.François Jospeh Talma" formControlName="adresse" [disabled]=true>
+      <input matInput placeholder="Ex.François Jospeh Talma" ngDefaultControl formControlName="rue">
     </mat-form-field>
   </div>
 </div>
@@ -82,13 +85,13 @@
   <div class="d-flex col-4">
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Durée :</mat-label>
-        <input matInput placeholder="90" formControlName="duree">
+        <input matInput placeholder="90" ngDefaultControl formControlName="duree" >
       </mat-form-field>
   </div>
   <div class="d-flex col-4">
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Code Postal</mat-label>
-      <input matInput placeholder="Ex.44000" formControlName="cp" [disabled]=true>
+      <input matInput placeholder="Ex.44000" ngDefaultControl formControlName="cp">
     </mat-form-field>
   </div>
 </div>
@@ -97,37 +100,38 @@
   <div class="d-flex col-4">
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Commentaire</mat-label>
-        <textarea id="comm" matInput placeholder="Commentaire" formControlName="commentaire"></textarea>
+        <textarea id="comm" ngDefaultControl matInput placeholder="Commentaire" formControlName="commentaire"></textarea>
       </mat-form-field>
   </div>
   <div class="col-4">
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Latitude</mat-label>
-      <input matInput placeholder="" formControlName="latitude">
+      <input matInput placeholder="" ngDefaultControl formControlName="latitude">
     </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Longitude</mat-label>
-      <input matInput placeholder="" formControlName="longitude">
+      <input matInput placeholder="" ngDefaultControl formControlName="longitude">
     </mat-form-field>
   </div>
   </div>
 
   <div class="row align-items-center">
     <div class="col">
-      <button type="submit" mat-raised-button color="accent" class="publier" (click)="publish()">Publier</button>
+      <button type="submit" mat-raised-button color="accent" class="publier">Publier</button>
     </div>
     <div class="col">
-      <button type="submit" mat-raised-button color="accent" class="Register" (click)="register()" >Enregistrer</button>
+      <button mat-raised-button color="accent" class="Register" (click)="register()" >Enregistrer</button>
     </div>
     <div class="col">
       <button type="submit" mat-raised-button color="accent" class="cancel" [routerLink]="'/home'">Annuler</button>
     </div>
   </div>
 
-</form>
 
 </div>
+</div>
+</form>
 <!--
 <mat-label>  Créer une sortie </mat-label>
 <form class="example-form">

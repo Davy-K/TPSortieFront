@@ -1,6 +1,6 @@
 <mat-card class="d-flex align-items-end flex-column">
 <h3><mat-label>  Date du jour : {{ date|date:'dd/MM/yyyy'}}</mat-label> </h3>
-<h3><mat-label>  Participant : </mat-label> </h3>
+<h3><mat-label>  Participant : {{usernameId}}</mat-label> </h3>
 </mat-card>
 <div id="filtre">
   <strong><h2> <mat-label>Filtrer les sorties </mat-label></h2> </strong>
@@ -22,17 +22,17 @@
     <br>
       <p>Entre
     <mat-form-field appearance="fill">
-      <mat-label>MM/DD/YYYY</mat-label>
+      <mat-label>DD/MM/YYYY</mat-label>
       <input  matInput [matDatepicker]="filtrePicker" ngDefaultControl formControlName="dateD" [formControl]="filtreForm.controls.dateD">
-      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-hint>DD/MM/YYYY</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="filtrePicker"></mat-datepicker-toggle>
       <mat-datepicker #filtrePicker></mat-datepicker>
     </mat-form-field>
         et
         <mat-form-field appearance="fill">
-          <mat-label>MM/DD/YYYY</mat-label>
+          <mat-label>DD/MM/YYYY</mat-label>
           <input  matInput [matDatepicker]="scdFiltrePicker" ngDefaultControl formControlName="dateF" [formControl]="filtreForm.controls.dateF">
-          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-hint>DD/MM/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="scdFiltrePicker"></mat-datepicker-toggle>
           <mat-datepicker #scdFiltrePicker></mat-datepicker>
         </mat-form-field>
@@ -51,7 +51,7 @@
   </form>
 </div>
 
-<table mat-table *ngIf="sorties$ |async as sortie" [dataSource]="sorties$" class="mat-elevation-z8">
+<table mat-table [dataSource]="listSortie" class="mat-elevation-z8">
 
   <!-- Name Column -->
   <ng-container matColumnDef="name">

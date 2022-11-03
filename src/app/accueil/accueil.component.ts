@@ -9,6 +9,7 @@ import {Sortie, SortieService} from "../service/sortie.service";
 import {User, UserService} from "../service/user.service";
 import {ConditionService} from "../service/condition.service";
 import {Campus, CampusService} from "../service/campus.service";
+import {CookieService} from "ngx-cookie-service";
 
 
 /*const ELEMENT_DATA : Sortie = [
@@ -24,10 +25,13 @@ export class AccueilComponent implements OnInit {
   sorties$!: Observable<Sortie[]>;
   tmpSorties$!: Observable<Sortie[]>;
   //nbInscrit: number[] = [];
+  user$!: Observable<User>;
   listCampus: string[] = [];
   date = new Date();
+  listSortie: string[] = [];
   organisateur$!: Observable<User[]>;
   campuses$!:Observable<Campus[]> ;
+  usernameId: string ="";
   displayedColumns: string[] = ['name', 'dateSortie', 'cloture', 'places', 'state', 'inscrits', 'organisator', 'action'];
   //dataSource = ELEMENT_DATA;
   filtreForm = new FormGroup({
@@ -38,12 +42,15 @@ export class AccueilComponent implements OnInit {
 
   })
 
-  constructor(private campusService : CampusService, private conditionService: ConditionService,private sortieService: SortieService, private userService: UserService, private router: Router, public loginService: LoginService, private httpClient: HttpClient) {
+  constructor(private campusService : CampusService, private cookieService: CookieService, private conditionService: ConditionService,private sortieService: SortieService, private userService: UserService, private router: Router, public loginService: LoginService, private httpClient: HttpClient) {
 
   }
 
   ngOnInit(): void {
+    //this.username = this.cookieService.get("id_user")
     //console.log(this.listCampus)
+
+
     this.campuses$ = this.campusService.getCampus().pipe(
       tap((campusList:Campus[]) =>{
         campusList.forEach(el =>{
@@ -53,20 +60,27 @@ export class AccueilComponent implements OnInit {
       })
     )
     //console.log(this.listCampus)
-    this.sorties$ = this.sortieService.getSorties().pipe(
-      tap((sortieList) => {
-        sortieList.forEach(el => {
-          this.userService.getUserHome(el.organizer as string).subscribe(
-            resp => {
-              el.organizer = resp
-            })
-          this.conditionService.getCondition(el.outingCondition as string).subscribe(
-            resp => {
-              el.outingCondition = resp
-            })
-          //this.nbInscrit.push(el.registereds.length)
-        })
-      }))
+    this.user$ = this.userService.getSortieUser(this.cookieService.get("id_user")).pipe(
+      tap((monUser: User) => {
+        this.listSortie.push(monUser.outings)
+        this.listSortie.push(monUser.outingsOrganizer)
+    }
+    ))
+
+    // this.sorties$ = this.sortieService.getSorties().pipe(
+    //   tap((sortieList) => {
+    //     sortieList.forEach(el => {
+    //       this.userService.getUserHome(el.organizer as string).subscribe(
+    //         resp => {
+    //           el.organizer = resp
+    //         })
+    //       this.conditionService.getCondition(el.outingCondition as string).subscribe(
+    //         resp => {
+    //           el.outingCondition = resp
+    //         })
+    //       //this.nbInscrit.push(el.registereds.length)
+    //     })
+    //   }))
   }
 
   refreshTable(){
@@ -95,7 +109,6 @@ export class AccueilComponent implements OnInit {
               resp => {
                 el.outingCondition = resp
               })
-            //this.nbInscrit.push(el.registereds.length)
           })
         }))
     }

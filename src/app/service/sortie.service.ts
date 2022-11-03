@@ -18,6 +18,11 @@ export class SortieService {
   addSortie(sortie:Sortie): void{
     this.httpClient.post<Sortie>("https://localhost:8080/api/outings",sortie)
   }
+
+  updateSortie(sortie:Sortie):Observable<Sortie[]>{
+    this.httpClient.put("https://127.0.0.1:8000/api/outings/"+sortie.id,sortie).subscribe();
+    return this.getSorties();
+  }
 }
 
 export interface Sortie{

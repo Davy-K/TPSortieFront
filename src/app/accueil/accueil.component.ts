@@ -31,13 +31,12 @@ export class AccueilComponent implements OnInit {
   listCampus: string[] = [];
   date = new Date();
   listSortie: string[] = [];
+  userCo!:User;
   organisateur$!: Observable<User[]>;
   campuses$!:Observable<Campus[]> ;
   usernameId: string ="";
   displayedColumns: string[] = ['name', 'dateSortie', 'cloture', 'places', 'state', 'inscrits', 'organisator', 'action'];
   //dataSource = ELEMENT_DATA;
-  store!: Store;
-
   filtreForm = new FormGroup({
     campus: new FormControl(""),
     name: new FormControl(""),
@@ -54,7 +53,6 @@ export class AccueilComponent implements OnInit {
     //this.username = this.cookieService.get("id_user")
     //console.log(this.listCampus)
 
-
     this.campuses$ = this.campusService.getCampus().pipe(
       tap((campusList:Campus[]) =>{
         campusList.forEach(el =>{
@@ -64,9 +62,9 @@ export class AccueilComponent implements OnInit {
       })
     )
     //console.log(this.listCampus)
-    this.store=Store.getInstance()
+    let userId = sessionStorage.getItem('userId')
     //console.log(this.store.get(['user','id']))
-    this.user$ = this.userService.getUserById(this.store.get(['user','id'])).pipe(tap(user=>{
+    this.user$ = this.userService.getUserById(userId!).pipe(tap(user=>{
         console.log(user.name)
         this.username = user.name
     }
@@ -103,11 +101,25 @@ export class AccueilComponent implements OnInit {
   }
 
   inscrit(mesUser:User[]) :boolean{
+    let userId = sessionStorage.getItem('userId');
     let present: boolean= false;
-    if (mesUser.find(el=> el.id == this.store.get(['user','id']))){
+    if (mesUser.find(el=> el.id.toString() == userId)){
       present = true;
     }
     return present;
+  }
+  cgmntEtat(etat:boolean,maSortie:Sortie) :void{
+    //maSortie.registereds.push()
+    //let monUser = "api/users/"+unUser.id;
+    if(!etat){
+    (maSortie.registereds as string[]).push("api/users/"+sessionStorage.getItem('userId'));
+    this.sorties$ = this.sortieService.updateSortie(maSortie);
+    }else{
+      let monUser!:User[]
+      monUser!=(maSortie.registereds as User[]).filter(el=> el.id.toString() != sessionStorage.getItem('userId'))
+      maSortie.registereds = monUser;
+      this.sorties$ = this.sortieService.updateSortie(maSortie);
+    }
   }
 
   onFormSubmit(){

@@ -40,7 +40,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     AccueilComponent,
     ListUserComponent,
     MonProfilComponent,
-    AddUserDialog
+    AddUserDialog,
     AfficherSortieComponent,
   ],
   imports: [

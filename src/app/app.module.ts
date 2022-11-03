@@ -22,11 +22,10 @@ import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/h
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatTableModule} from "@angular/material/table";
-import { ListUserComponent } from './list-user/list-user.component';
+import { ListUserComponent,AddUserDialog } from './list-user/list-user.component';
 import {AuthInterceptor} from "./interceptors/interceptor";
 import { MonProfilComponent } from './mon-profil/mon-profil.component';
-
-
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -38,6 +37,7 @@ import { MonProfilComponent } from './mon-profil/mon-profil.component';
     AccueilComponent,
     ListUserComponent,
     MonProfilComponent,
+    AddUserDialog
   ],
   imports: [
     BrowserModule,
@@ -45,6 +45,7 @@ import { MonProfilComponent } from './mon-profil/mon-profil.component';
     MatSidenavModule,
     MatToolbarModule,
     MatButtonModule,
+    MatDialogModule,
     MatCardModule,
     MatInputModule,
     FormsModule,

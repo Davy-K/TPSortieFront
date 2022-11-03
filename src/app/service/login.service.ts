@@ -6,6 +6,7 @@ import {Router} from "@angular/router"
 import {CookieService} from "ngx-cookie-service";
 import jwt_decode from 'jwt-decode';
 import {UserService} from "./user.service";
+import {Store} from "../store/store";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class LoginService {
   }
   public error: string = '';
   private loggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(!!localStorage.getItem("access_token"));
+  store!: Store ;
 
   get isLoggedIn$(): BehaviorSubject<boolean> {
     return this.loggedIn$;
@@ -68,7 +70,10 @@ export class LoginService {
             if(rememberMe){
               this.cookieService.set('email',email);
             }
-            this.cookieService.set('id_user',el.data.id);
+
+            this.store = Store.getInstance();
+            this.store.set(['user','id'],el.data.id);
+
             this.router.navigate(['/home']);
             this.error = "";
           }else{

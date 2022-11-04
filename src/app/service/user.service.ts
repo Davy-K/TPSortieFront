@@ -12,7 +12,7 @@ export class UserService {
   }
 
   insertUser(user:UserInsert) {
-    this.httpClient.post<UserInsert>("https://127.0.0.1:8000/api/users",user).subscribe();
+    this.httpClient.post<UserInsert>("https://127.0.0.1:8000/api/user",user).subscribe();
   }
 
   getUsers(): Observable<User[]> {
@@ -24,9 +24,7 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<User[]> {
-
-    this.httpClient.put("https://127.0.0.1:8000/api/users/" + user.id, user).subscribe();
-    return this.getUsers();
+    return  this.httpClient.put("https://127.0.0.1:8000/api/users/" + user.id, user).pipe(switchMap(()=>this.getUsers()));
   }
 
   updateUserCampusURI(user: UserCampusURI): Observable<User> {

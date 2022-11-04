@@ -64,11 +64,10 @@ export class AccueilComponent implements OnInit {
     //console.log(this.listCampus)
     let userId = sessionStorage.getItem('userId')
     //console.log(this.store.get(['user','id']))
-    this.user$ = this.userService.getUserById(userId!).pipe(tap(user=>{
-        console.log(user.name)
-        this.username = user.name
+    if(userId != null){
+      this.user$ = this.userService.getUserById(userId)
     }
-    ))
+
 
     this.sorties$ = this.sortieService.getSorties()
     /*tap((sortieList:Sortie[]) =>{
@@ -115,8 +114,7 @@ export class AccueilComponent implements OnInit {
     (maSortie.registereds as string[]).push("api/users/"+sessionStorage.getItem('userId'));
     this.sorties$ = this.sortieService.updateSortie(maSortie);
     }else{
-      let monUser!:User[]
-      monUser!=(maSortie.registereds as User[]).filter(el=> el.id.toString() != sessionStorage.getItem('userId'))
+      let monUser:User[] =(maSortie.registereds as User[]).filter(el=> el.id.toString() != sessionStorage.getItem('userId'))
       maSortie.registereds = monUser;
       this.sorties$ = this.sortieService.updateSortie(maSortie);
     }
@@ -129,19 +127,7 @@ export class AccueilComponent implements OnInit {
     let dateF =this.filtreForm.value.dateF;
 
     if(campus != ""){
-      this.sorties$ = this.sortieService.getSorties().pipe(
-        tap((sortieList) => {
-          sortieList.forEach(el => {
-            this.userService.getUserHome(el.organizer as string).subscribe(
-              resp => {
-                el.organizer = resp
-              })
-            this.conditionService.getCondition(el.outingCondition as string).subscribe(
-              resp => {
-                el.outingCondition = resp
-              })
-          })
-        }))
+      this.sorties$ = this.sortieService.getSorties()
     }
     // console.log(campus);
     // console.log(name);

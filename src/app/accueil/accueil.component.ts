@@ -32,13 +32,14 @@ export class AccueilComponent implements OnInit {
   date = new Date();
   listSortie: string[] = [];
   userCo!:User;
+  campusSelect: Campus | null = null;
   organisateur$!: Observable<User[]>;
   campuses$!:Observable<Campus[]> ;
   usernameId: string ="";
   displayedColumns: string[] = ['name', 'dateSortie', 'cloture', 'places', 'state', 'inscrits', 'organisator', 'action'];
   //dataSource = ELEMENT_DATA;
   filtreForm = new FormGroup({
-    campus: new FormControl(""),
+    campus: new FormControl<Campus | null>(null),
     name: new FormControl(""),
     dateD: new FormControl(""),
     dateF : new FormControl(""),
@@ -112,7 +113,7 @@ export class AccueilComponent implements OnInit {
     //maSortie.registereds.push()
     //let monUser = "api/users/"+unUser.id;
     if(!etat){
-    (maSortie.registereds as string[]).push("api/users/"+sessionStorage.getItem('userId'));
+    //(maSortie.registereds as string[]).push("api/users/"+sessionStorage.getItem('userId'));
     this.sorties$ = this.sortieService.updateSortie(maSortie);
     }else{
       let monUser!:User[]
@@ -123,27 +124,24 @@ export class AccueilComponent implements OnInit {
   }
 
   onFormSubmit(){
-    let campus = this.filtreForm.value.campus;
+    //let campus= this.filtreForm.value.campus;
+    this.campusSelect = this.filtreForm.controls.campus.value;
     let name = this.filtreForm.value.name;
     let dateD = this.filtreForm.value.dateD;
     let dateF =this.filtreForm.value.dateF;
-
-    if(campus != ""){
-      this.sorties$ = this.sortieService.getSorties().pipe(
-        tap((sortieList) => {
-          sortieList.forEach(el => {
-            this.userService.getUserHome(el.organizer as string).subscribe(
-              resp => {
-                el.organizer = resp
-              })
-            this.conditionService.getCondition(el.outingCondition as string).subscribe(
-              resp => {
-                el.outingCondition = resp
-              })
-          })
-        }))
-    }
-    // console.log(campus);
+    /*if(this.campusSelect != null) {
+      if(this.campusSelect.campusOutings.length>0){
+        for(let i =0;i<this.campusSelect.campusOutings.length;i++){
+          this.sorties$ = this.sortieService.getSortieFiltre(this.campusSelect.campusOutings[i])
+        }
+      }
+      else{
+        this.sorties$= this.tmpSorties$;
+      }
+      //this.campusSelect.campusOutings.forEach(uneSortie => )
+      )
+    }*/
+     //console.log(campus);
     // console.log(name);
     // console.log(dateD);
     // console.log(dateF);

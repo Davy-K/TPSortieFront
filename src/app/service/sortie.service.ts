@@ -3,6 +3,8 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {User} from "./user.service";
 import {Condition} from "./condition.service";
+import {Campus} from "./campus.service";
+import {Place} from "./place.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +17,8 @@ export class SortieService {
     return this.httpClient.get<Sortie[]>("https://127.0.0.1:8000/api/outings.json")
   }
 
-  addSortie(sortie:Sortie): void{
-    this.httpClient.post<Sortie>("https://localhost:8080/api/outings",sortie)
+  addSortie(sortie:CreationSortie): void{
+    this.httpClient.post<Sortie>("https://127.0.0.1:8000/api/outings",sortie).subscribe();
   }
 
   updateSortie(sortie:Sortie):Observable<Sortie[]>{
@@ -26,6 +28,9 @@ export class SortieService {
 
   getUneSortie(id:string):Observable<Sortie>{
     return this.httpClient.get<Sortie>("https://127.0.0.1:8000/api/outings/"+id)
+  }
+  getSortieFiltre(id:string):Observable<Sortie>{
+    return this.httpClient.get<Sortie>("https://127.0.0.1:8000/"+id)
   }
 }
 
@@ -38,9 +43,9 @@ export interface Sortie{
   nbRegistrationMax : number,
   infosOuting : string,
   organizer	: string | User,
-  registereds	: string[] | User[],
-  campus : string,
-  place	: string,
+  registereds	:  User[],
+  campus : Campus,
+  place	: Place,
   outingCondition : string | Condition,
   longitude : number;
   latitude : number;
@@ -51,3 +56,15 @@ export interface Sortie{
   cp:string;
 }
 
+export interface CreationSortie{
+  name : string,
+  dateHourStart : string,
+  duration : number,
+  dateLimitRegistration : string,
+  nbRegistrationMax : number,
+  infosOuting : string,
+  organizer	: string,
+  campus : string,
+  place	: string,
+  outingCondition : string,
+}

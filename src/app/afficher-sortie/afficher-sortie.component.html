@@ -5,19 +5,16 @@
       <h1 class="mt-3 flex-row d-flex justify-content-center" id="title">{{sortie.name}}</h1>
       <div class="row">
         <div class="col">
-          <img class="d-flex " src="/assets/icon_pers.png">
-        </div>
-        <div class="col">
           <mat-card class="mt-2 " id="card">
             <mat-card-content>
               <div class="mt-2" id="name">
                 <h2>Nom de la sortie : {{sortie.name}}</h2>
               </div>
               <div id="dateHourStart">
-                <h2>Date et heure de la sortie : {{sortie.dateHourStart|date:'DD/MM/AAAA hh:mm:ss'}}</h2>
+                <h2>Date et heure de la sortie : {{sortie.dateHourStart|date:'medium'}}</h2>
               </div>
               <div id="dateLimitRegistration">
-                <h2>Date limite d'inscription : {{sortie.dateLimitRegistration}}</h2>
+                <h2>Date limite d'inscription : {{sortie.dateLimitRegistration|date:'medium'}}</h2>
               </div>
               <div id="nbRegistrationMax">
                 <h2>Nombre de places : {{sortie.nbRegistrationMax}}</h2>
@@ -29,32 +26,51 @@
                 <h2>Description et infos : {{sortie.commentaire}}</h2>
               </div>
               <div id="campus">
-                <h2>Campus : {{sortie.campus}}</h2>
+                <h2>Campus : {{sortie.campus.name}}</h2>
               </div>
               <div id="lieu">
-                <h2>Lieu : {{sortie.lieu}}</h2>
+                <h2>Lieu : {{sortie.place.name}}</h2>
               </div>
               <div id="rue">
-                <h2>Rue : {{sortie.rue}}</h2>
-              </div>
-              <div id="cp">
-                <h2>Code Postal : {{sortie.cp}}</h2>
+                <h2>Rue : {{sortie.place.street}}</h2>
               </div>
               <div id="latitude">
-                <h2>Latitude : {{sortie.latitude}}</h2>
+                <h2>Latitude : {{sortie.place.latitude}}</h2>
               </div>
 
               <div id="longitude">
-                <h2>Longitude : {{sortie.longitude}}</h2>
+                <h2>Longitude : {{sortie.place.longitude}}</h2>
               </div>
 
 
             </mat-card-content>
           </mat-card>
         </div>
-        <div class="col"></div>
+
       </div>
-      <div class="mt-3 flex-row d-flex justify-content-center">
+      <!--<table mat-table *ngIf="user.length >0" [dataSource]="user" class="mat-elevation-z8">-->
+      <table mat-table *ngIf="(sortie$|async)?.registereds as user" [dataSource]="user" class="mat-elevation-z8">
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="pseudo">
+          <th mat-header-cell *matHeaderCellDef> Pseudo </th>
+          <td mat-cell *matCellDef="let element"> {{element.pseudo}} </td>
+        </ng-container>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+
+      <div class="mt-6 flex-row d-flex justify-content-center">
         <button mat-raised-button color="accent" [routerLink]="'/home'">Retour</button>
       </div>
     </div>

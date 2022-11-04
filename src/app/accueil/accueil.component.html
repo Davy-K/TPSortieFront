@@ -112,11 +112,11 @@
     <button mat-raised-button color="primary" >Publier</button>
       </div>
       <div *ngIf="element.organizer.id ==(user$ | async)?.id && element.outingCondition.libelle =='Ouverte'">
-        <button mat-raised-button color="primary" >Afficher</button>
+        <button mat-raised-button color="primary" [routerLink]="'/sortie/'+element.id.toString()">Afficher</button>
         <button mat-raised-button color="primary" >Annuler</button>
       </div>
       <div *ngIf="element.organizer.id !=(user$ | async)?.id">
-        <button mat-raised-button color="primary" >Afficher</button>
+        <button mat-raised-button color="primary" [routerLink]="'/sortie/'+element.id.toString()">Afficher</button>
       </div>
 
     </td>

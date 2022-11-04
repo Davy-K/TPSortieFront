@@ -32,7 +32,7 @@ export class AuthInterceptor implements HttpInterceptor {
                   localStorage.removeItem('access_token')
                   localStorage.removeItem('refresh_token')
                   this.router.navigate(['/'])
-                } else if(error.error['message'] == "Invalid JWT Token"){
+                } else if(error.error['message'] == "Expired JWT Token"){
                   localStorage.setItem('access_token', '');
                   let refresh_token = localStorage.getItem('refresh_token');
                   this.httpClient.post<{ token: string }>("https:/127.0.0.1:8000/api/token/refresh", {refresh_token}).subscribe(el => {

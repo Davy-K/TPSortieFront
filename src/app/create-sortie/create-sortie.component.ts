@@ -83,7 +83,7 @@ export class CreateSortieComponent implements OnInit {
       this.maSortie = {
         name : name,
         campus : "/api/campuses/" + campus.toString(),
-        outingCondition : "/api/conditions/8",
+        outingCondition : "/api/conditions/2",
         organizer : "api/users/" + sessionStorage.getItem('userId'),
         duration : Number(duree),
         dateHourStart : moment(dateSortie?.toString()).format('YYYY-MM-DD'),
@@ -120,7 +120,7 @@ export class CreateSortieComponent implements OnInit {
       this.maSortieRegister = {
         name : name,
         campus : "/api/campuses/" + campus.toString(),
-        outingCondition : "/api/conditions/7",
+        outingCondition : "/api/conditions/1",
         organizer : "api/users/" + sessionStorage.getItem('userId'),
         duration : Number(duree),
         dateHourStart : moment(dateSortie?.toString()).format('YYYY-MM-DD'),

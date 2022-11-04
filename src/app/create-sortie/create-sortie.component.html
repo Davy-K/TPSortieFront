@@ -119,10 +119,10 @@
 
   <div class="row align-items-center">
     <div class="col">
-      <button type="submit" mat-raised-button color="accent" class="publier">Publier</button>
+      <button type="submit" mat-raised-button color="accent" class="publier" [routerLink]="'/home'">Publier</button>
     </div>
     <div class="col">
-      <button mat-raised-button color="accent" class="Register" (click)="register()" >Enregistrer</button>
+      <button mat-raised-button color="accent" class="Register" (click)="register()" [routerLink]="'/home'">Enregistrer</button>
     </div>
     <div class="col">
       <button type="submit" mat-raised-button color="accent" class="cancel" [routerLink]="'/home'">Annuler</button>

@@ -94,7 +94,9 @@ export class CreateSortieComponent implements OnInit {
       }
 
       this.sortieService.addSortie(this.maSortie);
+      this.router.navigate(["/home"])
     }
+
       //console.log("tttt")
  //   }
   }
@@ -131,6 +133,7 @@ export class CreateSortieComponent implements OnInit {
       }
 
       this.sortieService.addSortie(this.maSortieRegister);
+      this.router.navigate(["/home"])
     }
   }
 

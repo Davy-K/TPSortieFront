@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import * as Console from "console";
 import * as moment from "moment";
 import {Lieu, LieuService} from "../service/lieu.service";
+import {LoginService} from "../service/login.service";
 
 @Component({
   selector: 'app-create-sortie',
@@ -41,9 +42,10 @@ export class CreateSortieComponent implements OnInit {
   villes$! : Observable<Ville[]>;
   campuses$!: Observable<Campus[]>;
   maSortie!: CreationSortie;
+  maSortieRegister!: CreationSortie;
   lieus$!: Observable<Lieu[]>;
 
-  constructor(private lieuService : LieuService, private sortieService: SortieService,private cookieService: CookieService,private campusService: CampusService, private villeService:VilleService, httpClient:HttpClient, private router: Router) { }
+  constructor(private lieuService : LieuService,public loginService: LoginService, private sortieService: SortieService,private cookieService: CookieService,private campusService: CampusService, private villeService:VilleService, httpClient:HttpClient, private router: Router) { }
   public error: string = "";
 
   ngOnInit(): void {
@@ -115,7 +117,7 @@ export class CreateSortieComponent implements OnInit {
     let nbMax = this.registerForm.controls.nbPlace.value;
     console.log(campus);
     if(name!=null && campus!=null && duree!=null && commentaires!=null && lieu !=null ) {
-      this.maSortie = {
+      this.maSortieRegister = {
         name : name,
         campus : "/api/campuses/" + campus.toString(),
         outingCondition : "/api/conditions/7",
@@ -128,7 +130,7 @@ export class CreateSortieComponent implements OnInit {
         nbRegistrationMax : Number(nbMax)
       }
 
-      this.sortieService.addSortie(this.maSortie);
+      this.sortieService.addSortie(this.maSortieRegister);
     }
   }
 

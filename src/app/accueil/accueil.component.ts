@@ -128,9 +128,9 @@ export class AccueilComponent implements OnInit {
     let dateD = this.filtreForm.value.dateD;
     let dateF =this.filtreForm.value.dateF;
 
-    if(campus != ""){
+    /*if(campus != ""){
       this.sorties$ = this.sortieService.getSorties()
-    }
+    }*/
     // console.log(campus);
     /*if(this.campusSelect != null) {
       if(this.campusSelect.campusOutings.length>0){

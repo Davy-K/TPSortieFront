@@ -1,3 +1,4 @@
+<div *ngIf="loginService.verifConnexion(); else noConnect">
 <h1><mat-label>  Créer une sortie </mat-label> </h1>
 <form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
 <div class="row justify-content-center">
@@ -132,6 +133,15 @@
 </div>
 </div>
 </form>
+</div>
+<ng-template #noConnect>
+  <div class="container ">
+    <h1 class="mt-3 flex-row d-flex justify-content-center">Vous n'êtes pas connecté !</h1>
+    <div class="mt-3 flex-row d-flex justify-content-center">
+      <button mat-raised-button color="accent" [routerLink]="'/'">Connection</button>
+    </div>
+  </div>
+</ng-template>
 <!--
 <mat-label>  Créer une sortie </mat-label>
 <form class="example-form">
